@@ -1,49 +1,49 @@
 import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
-import { 
-  Product, Order, SellerProfile, Notification, 
+import {
+  Product, Order, SellerProfile, Notification,
   AuditLog, FinancialSummary, OrderStatus, DeliveryPartner,
   ReturnRequest, Settlement, SellerPerformance, SupportTicket,
   ChatConversation, ChatMessage, NotificationPreferences, SecuritySettings,
   PayoutSettings, SellerStatus, ProductStatus, UserRole, SellerUser
-} from '../types';
+} from '../../types/seller';
 
 interface AppContextType {
   // Auth & Seller
   seller: SellerProfile | null;
   currentUser: SellerUser | null;
   isAuthenticated: boolean;
-  
+
   // Core Data
   products: Product[];
   orders: Order[];
   notifications: Notification[];
   logs: AuditLog[];
   financials: FinancialSummary;
-  
+
   // Extended Data
   returns: ReturnRequest[];
   settlements: Settlement[];
   performance: SellerPerformance;
   supportTickets: SupportTicket[];
   conversations: ChatConversation[];
-  
+
   // Settings
   notificationPrefs: NotificationPreferences;
   securitySettings: SecuritySettings;
   payoutSettings: PayoutSettings;
-  
+
   // Auth Actions
   registerSeller: (profile: Partial<SellerProfile>, password: string) => void;
   loginSeller: (email: string, password: string) => { success: boolean; error?: string };
   logoutSeller: () => void;
-  
+
   // Seller Actions
   updateSellerProfile: (profile: Partial<SellerProfile>) => void;
   updateSellerStatus: (status: SellerStatus) => void;
   addSellerUser: (user: Omit<SellerUser, 'id' | 'createdAt'>) => void;
   updateSellerUser: (userId: string, updates: Partial<SellerUser>) => void;
   removeSellerUser: (userId: string) => void;
-  
+
   // Product Actions
   setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
   addProduct: (product: Omit<Product, 'id' | 'status' | 'images' | 'tags' | 'createdAt' | 'reservedStock' | 'availableStock' | 'isLocked' | 'soldCount'>) => void;
@@ -52,32 +52,32 @@ interface AppContextType {
   approveProduct: (productId: string) => void;
   rejectProduct: (productId: string, reason: string) => void;
   adjustInventory: (productId: string, adjustment: number, reason: string) => void;
-  
+
   // Order Actions
   simulateOrder: () => void;
   acceptOrder: (orderId: string) => void;
   updateOrderStatus: (orderId: string, status: OrderStatus, note?: string) => void;
   shipOrder: (orderId: string, provider: string, trackingNumber: string) => void;
-  
+
   // Return Actions
   handleReturnRequest: (returnId: string, action: 'approve' | 'reject', response?: string, evidence?: string[]) => void;
-  
+
   // Support Actions
   activeConversation: string | null;
   setActiveConversation: (id: string | null) => void;
   sendMessage: (conversationId: string, message: string) => void;
   createSupportTicket: (ticket: Omit<SupportTicket, 'id' | 'status' | 'messages' | 'createdAt' | 'updatedAt'>) => void;
-  
+
   // Settings Actions
   updateNotificationPrefs: (prefs: Partial<NotificationPreferences>) => void;
   updateSecuritySettings: (settings: Partial<SecuritySettings>) => void;
   updatePayoutSettings: (settings: Partial<PayoutSettings>) => void;
   updateBankDetails: (bankDetails: SellerProfile['bankDetails']) => void;
-  
+
   // Utility Actions
   addLog: (action: string, category: AuditLog['category'], details: string, severity?: AuditLog['severity']) => void;
   markNotificationRead: (notificationId: string) => void;
-  
+
   // Verification
   submitVerificationDocuments: (documents: any) => void;
   acceptAgreement: () => void;
@@ -143,7 +143,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
     return sessionStorage.getItem('luvarte_auth') === 'true';
   });
-  
+
   const [seller, setSeller] = useState<SellerProfile | null>(() => {
     const saved = sessionStorage.getItem('luvarte_seller');
     if (saved) {
@@ -239,12 +239,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         state: 'Maharashtra',
         pincode: '411001'
       },
-      items: [{ 
-        productId: 'SKU-8821', 
+      items: [{
+        productId: 'SKU-8821',
         sku: 'CF-IND-56',
-        name: 'Industrial Ceiling Fan - 56 inch', 
-        quantity: 2, 
-        price: 4999, 
+        name: 'Industrial Ceiling Fan - 56 inch',
+        quantity: 2,
+        price: 4999,
         gstRate: 18,
         gstAmount: 1800,
         totalAmount: 11798
@@ -410,7 +410,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       .replace(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g, '***@***.com')
       .replace(/(\+91[\-\s]?)?[0-9]{10}/g, '+91-XXXXX-XXXXX')
       .replace(/[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}/g, 'XX-GSTIN-XX');
-    
+
     const newLog: AuditLog = {
       id: `LOG-${Date.now()}`,
       timestamp: new Date().toLocaleString('en-IN'),
@@ -478,7 +478,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const loginSeller = useCallback((email: string, password: string): { success: boolean; error?: string } => {
     const savedSeller = sessionStorage.getItem('luvarte_seller');
     const savedPassword = sessionStorage.getItem('luvarte_password');
-    
+
     if (savedSeller) {
       const parsed = JSON.parse(savedSeller);
       if (parsed.email === email && savedPassword === password) {
@@ -492,7 +492,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         return { success: true };
       }
     }
-    
+
     // Demo login
     if (email === 'admin@luvarte.in' && password === 'admin123') {
       const demoSeller: SellerProfile = {
@@ -525,7 +525,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         createdAt: '2024-01-01',
         approvedAt: '2024-01-01'
       };
-      
+
       setSeller(demoSeller);
       setCurrentUser(demoSeller.users[0]);
       sessionStorage.setItem('luvarte_seller', JSON.stringify(demoSeller));
@@ -537,7 +537,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       return { success: true };
     }
 
-    return { success: false, error: 'Invalid email or password. Try admin@luvarte.in / admin123' };
+    return { success: false, error: 'Invalid email or password.' };
   }, [addLog]);
 
   const logoutSeller = useCallback(() => {
@@ -583,7 +583,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     if (seller) {
       const updated = {
         ...seller,
-        users: seller.users.map(u => u.id === userId ? { ...u, ...updates } : u)
+        users: seller.users.map((u: SellerUser) => u.id === userId ? { ...u, ...updates } : u)
       };
       setSeller(updated);
       sessionStorage.setItem('luvarte_seller', JSON.stringify(updated));
@@ -595,7 +595,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     if (seller) {
       const updated = {
         ...seller,
-        users: seller.users.filter(u => u.id !== userId)
+        users: seller.users.filter((u: SellerUser) => u.id !== userId)
       };
       setSeller(updated);
       sessionStorage.setItem('luvarte_seller', JSON.stringify(updated));
@@ -635,21 +635,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, [addLog]);
 
   const submitProductForApproval = useCallback((productId: string) => {
-    setProducts(prev => prev.map(p => 
+    setProducts(prev => prev.map(p =>
       p.id === productId ? { ...p, status: 'Submitted' as ProductStatus, submittedAt: new Date().toISOString() } : p
     ));
     addLog('Product Submitted', 'Product', `Product ${productId} submitted for approval.`);
   }, [addLog]);
 
   const approveProduct = useCallback((productId: string) => {
-    setProducts(prev => prev.map(p => 
+    setProducts(prev => prev.map(p =>
       p.id === productId ? { ...p, status: 'Live' as ProductStatus, approvedAt: new Date().toISOString() } : p
     ));
     addLog('Product Approved', 'Product', `Product ${productId} approved and now live.`);
   }, [addLog]);
 
   const rejectProduct = useCallback((productId: string, reason: string) => {
-    setProducts(prev => prev.map(p => 
+    setProducts(prev => prev.map(p =>
       p.id === productId ? { ...p, status: 'Rejected' as ProductStatus, rejectionReason: reason } : p
     ));
     addLog('Product Rejected', 'Product', `Product ${productId} rejected: ${reason}.`, 'Warning');
@@ -673,7 +673,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const product = products[Math.floor(Math.random() * products.length)];
     const qty = Math.floor(Math.random() * 3) + 1;
     const gstAmount = Math.round(product.price * qty * (product.compliance.taxSlab / 100));
-    
+
     const newOrder: Order = {
       id: `LUV-${Math.floor(Math.random() * 900000) + 100000}`,
       date: new Date().toLocaleDateString('en-IN'),
@@ -711,7 +711,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       isDelayed: false,
       penaltyApplied: 0
     };
-    
+
     setOrders(prev => [newOrder, ...prev]);
     setNotifications(prev => [{
       id: `N-ORD-${Date.now()}`,
@@ -721,7 +721,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       timestamp: 'Just now',
       read: false
     }, ...prev]);
-    
+
     // Reserve stock
     setProducts(prev => prev.map(p => {
       if (p.id === product.id) {
@@ -729,7 +729,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       }
       return p;
     }));
-    
+
     addLog('Order Received', 'Order', `New order ${newOrder.id} received.`);
   }, [products, addLog]);
 
@@ -755,10 +755,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           status,
           timeline: [...o.timeline, { status, timestamp: new Date().toISOString(), note }]
         };
-        
-        // If delivered, lock the product SKUs and update sold count
+
         if (status === 'Delivered') {
-          o.items.forEach(item => {
+          o.items.forEach((item: any) => {
             setProducts(p => p.map(prod => {
               if (prod.id === item.productId) {
                 return {
@@ -773,7 +772,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             }));
           });
         }
-        
+
         return updated;
       }
       return o;
@@ -838,7 +837,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       return c;
     }));
     addLog('Message Sent', 'System', `Message sent in conversation ${conversationId}.`);
-    
+
     // Simulate reply after 2 seconds
     setTimeout(() => {
       setConversations(prev => prev.map(c => {
@@ -877,24 +876,24 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Settings Actions
   const updateNotificationPrefs = useCallback((prefs: Partial<NotificationPreferences>) => {
-    setNotificationPrefs(prev => ({ ...prev, ...prefs }));
+    setNotificationPrefs((prev: NotificationPreferences) => ({ ...prev, ...prefs }));
     addLog('Settings Updated', 'Settings', 'Notification preferences updated.');
   }, [addLog]);
 
   const updateSecuritySettings = useCallback((settings: Partial<SecuritySettings>) => {
-    setSecuritySettings(prev => ({ ...prev, ...settings }));
+    setSecuritySettings((prev: SecuritySettings) => ({ ...prev, ...settings }));
     addLog('Security Settings Updated', 'Settings', 'Security settings updated.', settings.twoFactorEnabled ? 'Info' : 'Warning');
   }, [addLog]);
 
   const updatePayoutSettings = useCallback((settings: Partial<PayoutSettings>) => {
-    setPayoutSettings(prev => ({ ...prev, ...settings }));
+    setPayoutSettings((prev: PayoutSettings) => ({ ...prev, ...settings }));
     addLog('Payout Settings Updated', 'Financial', 'Payout settings updated.');
   }, [addLog]);
 
   const updateBankDetails = useCallback((bankDetails: SellerProfile['bankDetails']) => {
     if (seller) {
-      const updated = { 
-        ...seller, 
+      const updated = {
+        ...seller,
         bankDetails,
         verification: { ...seller.verification, bankVerified: false }
       };
@@ -931,8 +930,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   }, [seller, addLog]);
 
+  // Utility Actions
   const markNotificationRead = useCallback((notificationId: string) => {
-    setNotifications(prev => prev.map(n => 
+    setNotifications((prev: Notification[]) => prev.map(n =>
       n.id === notificationId ? { ...n, read: true } : n
     ));
   }, []);
@@ -957,8 +957,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const delivered = orders.filter(o => o.status === 'Delivered').length;
     const cancelled = orders.filter(o => o.status === 'Cancelled').length;
     const total = orders.length;
-    
-    setPerformance(prev => ({
+
+    setPerformance((prev: SellerPerformance) => ({
       ...prev,
       ordersReceived: total,
       ordersDelivered: delivered,

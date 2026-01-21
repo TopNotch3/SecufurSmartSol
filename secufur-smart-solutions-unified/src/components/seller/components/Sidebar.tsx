@@ -34,7 +34,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onLogout }) => {
   return (
     <aside className="hidden lg:flex w-64 bg-[#002366] text-white flex-col h-screen shrink-0 border-r border-white/5 relative z-30">
       <div className="p-8 pb-10">
-        <h2 className="text-2xl font-jakarta font-black tracking-tighter italic">LUVARTE</h2>
+        <h2 className="text-2xl font-jakarta font-black tracking-tighter italic">Secufur Smart Solutions</h2>
         <p className="text-[9px] uppercase tracking-[0.3em] text-blue-300/60 font-black mt-1">Seller Central</p>
       </div>
 

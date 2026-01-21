@@ -39,7 +39,7 @@ const Layout: React.FC<LayoutProps> = ({ onLogout, children }) => {
           <aside className="absolute left-0 top-0 bottom-0 w-[280px] bg-[#002366] text-white flex flex-col animate-in slide-in-from-left duration-300 shadow-2xl">
             <div className="p-8 flex justify-between items-center">
               <div>
-                <h2 className="text-2xl font-jakarta font-black tracking-tighter italic">LUVARTE</h2>
+                <h2 className="text-2xl font-jakarta font-black tracking-tighter italic">Secufur Smart Solutions</h2>
                 <p className="text-[9px] uppercase tracking-[0.3em] text-blue-300/60 font-black mt-1">Seller Central</p>
               </div>
               <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 hover:bg-white/10 rounded-xl transition-all">
@@ -100,7 +100,7 @@ const Layout: React.FC<LayoutProps> = ({ onLogout, children }) => {
               )}
             </button>
             <div className="text-right hidden sm:block">
-              <p className="text-sm font-bold text-slate-800">{seller?.contactPerson || 'Merchant'}</p>
+              <p className="text-sm font-bold text-slate-800">{seller?.contactPerson || 'Seller'}</p>
               <p className="text-[9px] sm:text-[10px] text-green-600 font-extrabold uppercase tracking-widest">
                 {seller?.verification?.agreementAccepted ? 'Verified' : 'Pending'}
               </p>
@@ -120,7 +120,7 @@ const Layout: React.FC<LayoutProps> = ({ onLogout, children }) => {
               <a href="#" className="hover:text-[#002366]">Terms</a>
               <a href="#" className="hover:text-[#002366]">GST Compliance</a>
             </div>
-            <p className="mx-auto sm:mx-0">© 2024 {seller?.businessName?.toUpperCase() || 'LUVARTE'}</p>
+            <p className="mx-auto sm:mx-0">© 2024 {seller?.businessName?.toUpperCase() || 'Secufur Smart Solutions'}</p>
           </footer>
         </div>
       </main>
