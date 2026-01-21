@@ -1,0 +1,219 @@
+/* Footer Component - NO BORDER RADIUS */
+.footer {
+  background-color: var(--bg-secondary);
+  color: var(--text-inverted);
+  border-top: var(--border);
+}
+
+.container {
+  max-width: var(--container-xl);
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+/* Top Section - Logo */
+.topSection {
+  padding: var(--spacing-2xl) var(--spacing-lg);
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--text-inverted);
+  text-decoration: none;
+}
+
+/* Grid Layout - 4 Columns */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-2xl);
+  padding: var(--spacing-2xl) 0;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.columnTitle {
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--text-inverted);
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+/* Link Lists */
+.linkList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.link {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.link:hover {
+  color: var(--text-inverted);
+}
+
+/* Contact Section */
+.contactList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.contactItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+}
+
+.contactLabel {
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Social Links */
+.socialLinks {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0;
+  color: var(--text-inverted);
+  transition: all var(--transition-fast);
+}
+
+.socialLink:hover {
+  background-color: var(--text-inverted);
+  color: var(--bg-secondary);
+  border-color: var(--text-inverted);
+}
+
+.socialLink svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Bottom Section - Copyright */
+.bottomSection {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: var(--spacing-lg) 0;
+}
+
+.bottomSection .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.copyright {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+}
+
+.paymentMethods {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.paymentLabel {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.paymentIcons {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.paymentIcon {
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-inverted);
+  border-radius: 0;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-xl);
+  }
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+
+  .topSection {
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+
+  .logo {
+    font-size: var(--font-size-4xl);
+  }
+
+  .container {
+    padding: 0 var(--spacing-md);
+  }
+
+  .bottomSection .container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .paymentMethods {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .socialLinks {
+    justify-content: center;
+  }
+}

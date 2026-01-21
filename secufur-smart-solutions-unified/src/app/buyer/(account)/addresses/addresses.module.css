@@ -1,0 +1,184 @@
+/* Addresses Page Styles - NO BORDER RADIUS */
+.addressGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-lg);
+}
+
+.addressCard {
+  position: relative;
+  padding: var(--spacing-lg);
+  background-color: #FFFFFF;
+  border: var(--border);
+  border-radius: 0;
+}
+
+.defaultBadge {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: var(--color-success);
+  color: var(--text-inverted);
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+}
+
+.typeBadge {
+  display: inline-block;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: var(--bg-secondary);
+  color: var(--text-inverted);
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-md);
+}
+
+.addressName {
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+.addressPhone {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.addressLine {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin: 0;
+}
+
+.addressLandmark {
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  font-style: italic;
+  margin: var(--spacing-sm) 0 0 0;
+}
+
+.addressActions {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-md);
+  border-top: var(--border);
+}
+
+.actionButton {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: none;
+  border: var(--border);
+  border-radius: 0;
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.actionButton:hover {
+  background-color: var(--bg-secondary);
+  color: var(--text-inverted);
+}
+
+.actionButton.deleteButton {
+  color: var(--color-error);
+  border-color: var(--color-error);
+}
+
+.actionButton.deleteButton:hover {
+  background-color: var(--color-error);
+  color: var(--text-inverted);
+}
+
+.addAddressCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+  min-height: 200px;
+  padding: var(--spacing-lg);
+  background: none;
+  border: 2px dashed var(--text-secondary);
+  border-radius: 0;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.addAddressCard:hover {
+  border-color: var(--text-primary);
+}
+
+.addAddressCard svg {
+  width: 40px;
+  height: 40px;
+  color: var(--text-secondary);
+}
+
+.addAddressCard:hover svg {
+  color: var(--text-primary);
+}
+
+.addAddressCard span {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--text-secondary);
+}
+
+.addAddressCard:hover span {
+  color: var(--text-primary);
+}
+
+/* Address Form in Modal */
+.addressForm {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-md);
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+.modalActions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-md);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .addressGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .addressForm {
+    grid-template-columns: 1fr;
+  }
+
+  .addressActions {
+    flex-wrap: wrap;
+  }
+}

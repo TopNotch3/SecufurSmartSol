@@ -1,0 +1,120 @@
+/* Error Boundary Styles - NO BORDER RADIUS */
+.errorContainer {
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2xl);
+  background-color: var(--bg-primary);
+}
+
+.errorContent {
+  max-width: 500px;
+  text-align: center;
+  padding: var(--spacing-2xl);
+  background-color: #FFFFFF;
+  border: var(--border);
+  border-radius: 0;
+}
+
+.errorIcon {
+  width: 64px;
+  height: 64px;
+  color: var(--color-error);
+  margin: 0 auto var(--spacing-lg);
+}
+
+.errorTitle {
+  font-family: var(--font-display);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin: 0 0 var(--spacing-md) 0;
+}
+
+.errorMessage {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  color: var(--text-secondary);
+  margin: 0 0 var(--spacing-xl) 0;
+  line-height: var(--line-height-relaxed);
+}
+
+.errorDetails {
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-md);
+  background-color: var(--bg-primary);
+  border: var(--border);
+  border-radius: 0;
+  text-align: left;
+}
+
+.errorName {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-error);
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.errorStack {
+  font-family: monospace;
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.errorActions {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+}
+
+.retryButton {
+  padding: var(--spacing-md) var(--spacing-xl);
+  background-color: var(--bg-secondary);
+  color: var(--text-inverted);
+  border: none;
+  border-radius: 0;
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+
+.retryButton:hover {
+  opacity: 0.9;
+}
+
+.homeButton {
+  padding: var(--spacing-md) var(--spacing-xl);
+  background-color: transparent;
+  color: var(--text-primary);
+  border: var(--border);
+  border-radius: 0;
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.homeButton:hover {
+  background-color: var(--bg-secondary);
+  color: var(--text-inverted);
+}
+
+@media (max-width: 480px) {
+  .errorActions {
+    flex-direction: column;
+  }
+
+  .retryButton,
+  .homeButton {
+    width: 100%;
+  }
+}

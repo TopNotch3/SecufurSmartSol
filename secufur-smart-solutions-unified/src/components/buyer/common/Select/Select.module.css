@@ -1,0 +1,126 @@
+/* Select Component - NO BORDER RADIUS */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+.required {
+  color: var(--color-error);
+  margin-left: var(--spacing-2xs);
+}
+
+.selectContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: #FFFFFF;
+  border: var(--border);
+  border-radius: 0;
+  transition: border-color var(--transition-fast);
+}
+
+.selectContainer:focus-within {
+  border-color: var(--accent-selected);
+}
+
+/* Sizes */
+.sm {
+  height: var(--input-height-sm);
+}
+
+.md {
+  height: var(--input-height-md);
+}
+
+.lg {
+  height: var(--input-height-lg);
+}
+
+.select {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  padding: 0 var(--spacing-xl) 0 var(--spacing-md);
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.sm .select {
+  font-size: var(--font-size-sm);
+  padding: 0 var(--spacing-lg) 0 var(--spacing-sm);
+}
+
+.lg .select {
+  font-size: var(--font-size-lg);
+  padding: 0 var(--spacing-2xl) 0 var(--spacing-lg);
+}
+
+.select:disabled {
+  cursor: not-allowed;
+}
+
+/* Dropdown Arrow */
+.arrow {
+  position: absolute;
+  right: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  color: var(--text-secondary);
+}
+
+.arrow svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Error State */
+.error {
+  border-color: var(--color-error);
+}
+
+.error:focus-within {
+  border-color: var(--color-error);
+}
+
+/* Disabled State */
+.disabled {
+  background-color: var(--bg-primary);
+  opacity: 0.6;
+}
+
+/* Helper Text & Error Message */
+.errorMessage {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--color-error);
+}
+
+.helperText {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}

@@ -1,0 +1,203 @@
+/* Error Page Styles - NO BORDER RADIUS */
+.errorPage {
+  min-height: calc(100vh - 200px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2xl);
+  background-color: var(--bg-primary);
+}
+
+.container {
+  max-width: 600px;
+  width: 100%;
+}
+
+.content {
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+  padding: var(--spacing-2xl);
+  background-color: #FFFFFF;
+  border: var(--border);
+  border-radius: 0;
+}
+
+.errorIcon {
+  width: 64px;
+  height: 64px;
+  color: var(--color-error);
+  margin: 0 auto var(--spacing-lg);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--text-primary);
+  margin: 0 0 var(--spacing-md) 0;
+}
+
+.description {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  color: var(--text-secondary);
+  margin: 0 0 var(--spacing-xl) 0;
+  line-height: var(--line-height-relaxed);
+}
+
+.errorDetails {
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-md);
+  background-color: var(--bg-primary);
+  border: var(--border);
+  border-radius: 0;
+  text-align: left;
+}
+
+.errorName {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-error);
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+.errorMessage {
+  font-family: monospace;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin: 0 0 var(--spacing-sm) 0;
+  word-break: break-word;
+}
+
+.errorDigest {
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+}
+
+.primaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md) var(--spacing-xl);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  background-color: var(--bg-secondary);
+  color: var(--text-inverted);
+  border: var(--border);
+  border-color: var(--bg-secondary);
+  border-radius: 0;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.primaryButton:hover {
+  background-color: var(--text-primary);
+  border-color: var(--text-primary);
+}
+
+.secondaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md) var(--spacing-xl);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  background-color: transparent;
+  color: var(--text-primary);
+  border: var(--border);
+  border-radius: 0;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.secondaryButton:hover {
+  background-color: var(--bg-secondary);
+  border-color: var(--bg-secondary);
+  color: var(--text-inverted);
+}
+
+/* Help Section */
+.helpSection {
+  text-align: center;
+  padding: var(--spacing-lg);
+  background-color: #FFFFFF;
+  border: var(--border);
+  border-radius: 0;
+}
+
+.helpTitle {
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.helpText {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin: 0 0 var(--spacing-md) 0;
+}
+
+.helpLinks {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-xl);
+}
+
+.helpLinks a {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--bg-secondary);
+  text-decoration: underline;
+  transition: color var(--transition-fast);
+}
+
+.helpLinks a:hover {
+  color: var(--text-primary);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .content {
+    padding: var(--spacing-lg);
+  }
+
+  .title {
+    font-size: var(--font-size-xl);
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    width: 100%;
+  }
+
+  .helpLinks {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+}

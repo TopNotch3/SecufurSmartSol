@@ -1,0 +1,310 @@
+/* Auth Pages Shared Styles - NO BORDER RADIUS */
+.authPage {
+  min-height: calc(100vh - 200px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2xl) var(--spacing-md);
+  background-color: var(--bg-primary);
+}
+
+.authContainer {
+  width: 100%;
+  max-width: 480px;
+}
+
+.authCard {
+  background-color: #FFFFFF;
+  border: var(--border);
+  border-radius: 0;
+  padding: var(--spacing-2xl);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--text-primary);
+  margin: 0 0 var(--spacing-sm) 0;
+  text-align: center;
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  color: var(--text-secondary);
+  text-align: center;
+  margin: 0 0 var(--spacing-xl) 0;
+}
+
+/* Method Selector */
+.methodSelector {
+  display: flex;
+  border: var(--border);
+  margin-bottom: var(--spacing-lg);
+}
+
+.methodButton {
+  flex: 1;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  background-color: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.methodButton:first-child {
+  border-right: var(--border);
+}
+
+.methodButton.active {
+  background-color: var(--bg-secondary);
+  color: var(--text-inverted);
+}
+
+/* Error Banner */
+.errorBanner {
+  padding: var(--spacing-md);
+  background-color: rgba(198, 40, 40, 0.1);
+  border: 1px solid var(--color-error);
+  color: var(--color-error);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-lg);
+}
+
+/* Success Banner */
+.successBanner {
+  padding: var(--spacing-md);
+  background-color: rgba(37, 99, 235, 0.1);
+  border: 1px solid var(--color-success);
+  color: var(--color-success);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-lg);
+}
+
+/* Form */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+}
+
+/* Checkbox Group */
+.checkboxGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.checkboxLabel input[type="checkbox"] {
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.checkboxError {
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  color: var(--color-error);
+  margin-left: 26px;
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin: var(--spacing-lg) 0;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: var(--border-color);
+}
+
+.divider span {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+/* Social Buttons */
+.socialButtons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  margin-top: var(--spacing-lg);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.link {
+  color: var(--text-primary);
+  font-weight: var(--font-weight-medium);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.link:hover {
+  color: var(--text-secondary);
+}
+
+/* Remember Me & Forgot Password Row */
+.optionsRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--spacing-sm);
+}
+
+.rememberMe {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.forgotLink {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.forgotLink:hover {
+  color: var(--text-secondary);
+}
+
+/* Account Lock Warning */
+.lockWarning {
+  padding: var(--spacing-md);
+  background-color: rgba(249, 168, 37, 0.1);
+  border: 1px solid var(--color-warning);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-lg);
+}
+
+.lockWarning strong {
+  color: var(--color-warning);
+}
+
+/* Verification Pending */
+.verificationPending {
+  text-align: center;
+  padding: var(--spacing-xl);
+}
+
+.verificationIcon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto var(--spacing-lg);
+  color: var(--color-success);
+}
+
+.verificationTitle {
+  font-family: var(--font-display);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.verificationText {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-lg);
+}
+
+.resendButton {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+  background: none;
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.resendButton:disabled {
+  color: var(--text-secondary);
+  cursor: not-allowed;
+}
+
+/* Back Link */
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  text-decoration: none;
+  margin-bottom: var(--spacing-lg);
+}
+
+.backLink:hover {
+  color: var(--text-primary);
+}
+
+.backLink svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .authCard {
+    padding: var(--spacing-lg);
+  }
+
+  .title {
+    font-size: var(--font-size-3xl);
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+  }
+}

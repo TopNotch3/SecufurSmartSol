@@ -1,0 +1,115 @@
+/* Main Loading Skeleton - NO BORDER RADIUS */
+.loading {
+  min-height: calc(100vh - 200px);
+  padding: var(--spacing-2xl) 0;
+  background-color: var(--bg-primary);
+}
+
+.container {
+  max-width: var(--container-xl);
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+/* Header Skeleton */
+.headerSkeleton {
+  margin-bottom: var(--spacing-2xl);
+  text-align: center;
+}
+
+.titleSkeleton {
+  height: 40px;
+  max-width: 300px;
+  margin: 0 auto var(--spacing-md);
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.subtitleSkeleton {
+  height: 20px;
+  max-width: 200px;
+  margin: 0 auto;
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Grid Skeleton */
+.gridSkeleton {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-lg);
+}
+
+/* Card Skeleton */
+.cardSkeleton {
+  background-color: #FFFFFF;
+  border: var(--border);
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.imageSkeleton {
+  aspect-ratio: 1;
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.cardContent {
+  padding: var(--spacing-md);
+}
+
+.textSkeleton {
+  height: 16px;
+  margin-bottom: var(--spacing-sm);
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.textSkeletonShort {
+  height: 16px;
+  width: 60%;
+  margin-bottom: var(--spacing-md);
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.priceSkeleton {
+  height: 24px;
+  width: 80px;
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .gridSkeleton {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .gridSkeleton {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .gridSkeleton {
+    grid-template-columns: 1fr;
+  }
+}

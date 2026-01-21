@@ -1,0 +1,109 @@
+/* LUVARTE Design System - Design Tokens */
+:root {
+  /* Primary Colors */
+  --bg-primary: #FDFDFD;              /* Canvas Off-White - Main background */
+  --bg-secondary: #002366;            /* Luvarte Deep Blue - Primary brand */
+  --bg-tertiary: #F8F9FA;             /* Ghost Gray - Secondary background */
+  --text-primary: #1A1A1A;
+  --text-secondary: #666666;
+  --text-inverted: #FFFFFF;
+  --accent-selected: #002366;         /* Luvarte Deep Blue for focus states */
+  --accent-blue: #3B82F6;             /* Electric Blue - Accent */
+
+  /* Status Colors */
+  --color-success: #22C55E;           /* Compliance Green */
+  --color-error: #C62828;
+  --color-warning: #F59E0B;           /* Regulatory Amber - Alert */
+  --color-info: #3B82F6;              /* Electric Blue */
+
+  /* Border System - NO ROUNDED CORNERS */
+  --border-color: #000000;
+  --border-width: 1px;
+  --border-radius: 0px;
+  --border-style: solid;
+  --border: var(--border-width) var(--border-style) var(--border-color);
+
+  /* Spacing Scale */
+  --spacing-2xs: 2px;
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+  --spacing-4xl: 96px;
+
+  /* Font Families */
+  --font-display: 'Oswald', 'Bebas Neue', 'Arial Narrow', sans-serif;
+  --font-body: 'Inter', 'Roboto', 'Helvetica Neue', sans-serif;
+
+  /* Font Sizes */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 2rem;
+  --font-size-4xl: 2.5rem;
+  --font-size-5xl: 3rem;
+  --font-size-6xl: 4rem;
+  --font-size-7xl: 5rem;
+
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Line Heights */
+  --line-height-tight: 1.1;
+  --line-height-snug: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* Letter Spacing */
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-wider: 0.05em;
+  --letter-spacing-widest: 0.1em;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 350ms ease;
+
+  /* Z-Index Scale */
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 300;
+  --z-modal-backdrop: 400;
+  --z-modal: 500;
+  --z-toast: 600;
+  --z-tooltip: 700;
+
+  /* Container Widths */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1536px;
+
+  /* Input Heights */
+  --input-height-sm: 32px;
+  --input-height-md: 40px;
+  --input-height-lg: 48px;
+
+  /* Button Heights */
+  --button-height-sm: 32px;
+  --button-height-md: 40px;
+  --button-height-lg: 48px;
+}

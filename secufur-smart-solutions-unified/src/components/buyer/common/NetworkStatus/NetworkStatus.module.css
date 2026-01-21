@@ -1,0 +1,83 @@
+/* Network Status Banner - NO BORDER RADIUS */
+.banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.offline {
+  background-color: var(--text-primary);
+}
+
+.error {
+  background-color: var(--color-error);
+}
+
+.content {
+  max-width: var(--container-xl);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  color: var(--text-inverted);
+  flex-shrink: 0;
+}
+
+.message {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-inverted);
+}
+
+.dismiss {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xs);
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: var(--spacing-sm);
+}
+
+.dismiss svg {
+  width: 16px;
+  height: 16px;
+  color: var(--text-inverted);
+  opacity: 0.7;
+  transition: opacity var(--transition-fast);
+}
+
+.dismiss:hover svg {
+  opacity: 1;
+}
+
+@media (max-width: 480px) {
+  .banner {
+    padding: var(--spacing-md);
+  }
+
+  .message {
+    font-size: var(--font-size-xs);
+  }
+}

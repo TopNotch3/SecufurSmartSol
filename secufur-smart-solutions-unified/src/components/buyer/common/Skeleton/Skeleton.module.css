@@ -1,0 +1,111 @@
+/* Skeleton Component - NO BORDER RADIUS */
+.skeleton {
+  background-color: #e0e0e0;
+  border-radius: 0;
+}
+
+/* Variants */
+.text {
+  height: 1em;
+  margin-bottom: 0.5em;
+}
+
+.text:last-child {
+  margin-bottom: 0;
+}
+
+.rectangular {
+  display: block;
+}
+
+.circular {
+  border-radius: 50% !important;
+}
+
+/* Animations */
+.pulse {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.wave {
+  position: relative;
+  overflow: hidden;
+}
+
+.wave::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: wave 1.5s ease-in-out infinite;
+}
+
+/* Presets */
+.textWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.imageWrapper {
+  overflow: hidden;
+  border: var(--border);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border: var(--border);
+}
+
+.cardContent {
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.productCard {
+  display: flex;
+  flex-direction: column;
+  border: var(--border);
+  background-color: #FFFFFF;
+}
+
+.productContent {
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+/* Animations */
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes wave {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
