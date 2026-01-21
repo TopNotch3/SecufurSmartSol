@@ -103,16 +103,32 @@ const AuthPage: React.FC = () => {
           setError('Please fill in all required fields');
           return;
         }
+        if (!formData.panDoc) {
+          setError('Please upload PAN Card PDF');
+          return;
+        }
+        if (!formData.gstDoc) {
+          setError('Please upload GST Certificate PDF');
+          return;
+        }
       }
       if (step === 3) {
         if (!formData.signatoryName || !formData.address.line1 || !formData.address.city || !formData.address.state || !formData.address.pincode) {
           setError('Please fill in all required fields');
           return;
         }
+        if (!formData.addressProofDoc) {
+          setError('Please upload Address Proof PDF');
+          return;
+        }
       }
       if (step === 4) {
         if (!formData.bankDetails.accountNumber || !formData.bankDetails.ifsc) {
           setError('Please fill in all required fields');
+          return;
+        }
+        if (!formData.cancelledChequeDoc) {
+          setError('Please upload Cancelled Cheque / Bank Statement PDF');
           return;
         }
       }
