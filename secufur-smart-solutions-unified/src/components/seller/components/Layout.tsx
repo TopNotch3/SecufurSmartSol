@@ -39,7 +39,7 @@ const Layout: React.FC<LayoutProps> = ({ onLogout, children }) => {
           <aside className="absolute left-0 top-0 bottom-0 w-[280px] bg-[#002366] text-white flex flex-col animate-in slide-in-from-left duration-300 shadow-2xl">
             <div className="p-8 flex justify-between items-center">
               <div>
-                <h2 className="text-2xl font-jakarta font-black tracking-tighter italic">Secufur Smart Solutions</h2>
+                <h2 className="text-2xl font-jakarta font-black tracking-wide">Secufur Smart Solutions</h2>
                 <p className="text-[9px] uppercase tracking-[0.3em] text-blue-300/60 font-black mt-1">Seller Central</p>
               </div>
               <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 hover:bg-white/10 rounded-xl transition-all">
@@ -111,16 +111,18 @@ const Layout: React.FC<LayoutProps> = ({ onLogout, children }) => {
           </div>
         </header>
 
-        <div className="flex-1 overflow-y-auto p-4 sm:p-8 relative pb-20 sm:pb-24">
-          {children}
+        <div className="flex-1 overflow-y-auto relative flex flex-col">
+          <div className="flex-1 p-4 sm:p-8 pb-10">
+            {children}
+          </div>
 
-          <footer className="absolute bottom-0 left-0 right-0 h-12 sm:h-14 bg-gray-50 border-t border-gray-100 px-4 sm:px-8 flex items-center justify-between text-[8px] sm:text-[10px] font-bold text-slate-400">
+          <footer className="h-12 sm:h-14 bg-gray-50 border-t border-gray-100 px-4 sm:px-8 flex items-center justify-between text-[8px] sm:text-[10px] font-bold text-slate-400 shrink-0">
             <div className="hidden sm:flex gap-4 sm:gap-6 uppercase tracking-widest">
-              <a href="#" className="hover:text-[#002366]">Privacy</a>
-              <a href="#" className="hover:text-[#002366]">Terms</a>
-              <a href="#" className="hover:text-[#002366]">GST Compliance</a>
+              <Link href="/privacy" className="hover:text-[#002366]">Privacy</Link>
+              <Link href="/terms" className="hover:text-[#002366]">Terms</Link>
+              <Link href="/gst-compliance" className="hover:text-[#002366]">GST Compliance</Link>
             </div>
-            <p className="mx-auto sm:mx-0">© 2024 {seller?.businessName?.toUpperCase() || 'Secufur Smart Solutions'}</p>
+            <p className="mx-auto sm:mx-0">© 2026 Secufur Smart Solutions</p>
           </footer>
         </div>
       </main>

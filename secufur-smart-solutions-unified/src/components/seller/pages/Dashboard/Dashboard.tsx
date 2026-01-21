@@ -59,9 +59,9 @@ const Dashboard: React.FC = () => {
 
       {seller?.status && seller.status !== 'Live' && (
         <div className={`p-4 rounded-2xl border flex items-start gap-3 ${seller.status === 'Applied' ? 'bg-yellow-50 border-yellow-100' :
-            seller.status === 'UnderReview' ? 'bg-blue-50 border-blue-100' :
-              seller.status === 'Suspended' ? 'bg-red-50 border-red-100' :
-                'bg-gray-50 border-gray-100'
+          seller.status === 'UnderReview' ? 'bg-blue-50 border-blue-100' :
+            seller.status === 'Suspended' ? 'bg-red-50 border-red-100' :
+              'bg-gray-50 border-gray-100'
           }`}>
           <AlertTriangle size={18} className={
             seller.status === 'Applied' ? 'text-yellow-500' :
@@ -77,7 +77,7 @@ const Dashboard: React.FC = () => {
             </p>
             {seller.status === 'Applied' && (
               <button
-                onClick={() => router.push('/compliance')}
+                onClick={() => router.push('/seller/compliance')}
                 className="mt-3 text-[10px] font-bold text-[#002366] uppercase tracking-wider hover:underline"
               >
                 Complete Verification →
@@ -87,12 +87,7 @@ const Dashboard: React.FC = () => {
         </div>
       )}
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 bg-white p-3 sm:p-4 rounded-2xl border border-gray-100 shadow-sm">
-        <ComplianceItem icon={<Lock size={14} className="text-green-500" />} label="SSL/TLS 1.3" status="Active" />
-        <ComplianceItem icon={<ShieldCheck size={14} className="text-blue-500" />} label="PCI-DSS v4.0" status="Compliant" />
-        <ComplianceItem icon={<Server size={14} className="text-purple-500" />} label="Daily Backups" status="Synced" />
-        <ComplianceItem icon={<Activity size={14} className="text-orange-500" />} label="WAF Status" status="Protected" />
-      </div>
+
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         <StatCard
@@ -190,8 +185,8 @@ const Dashboard: React.FC = () => {
                   <div className="text-right shrink-0 ml-2">
                     <p className="text-xs sm:text-sm font-extrabold text-[#002366]">₹{o.totalAmount.toLocaleString('en-IN')}</p>
                     <p className={`text-[9px] sm:text-[10px] font-bold uppercase ${o.status === 'Pending' ? 'text-orange-500' :
-                        o.status === 'Delivered' ? 'text-green-500' :
-                          o.status === 'Shipped' ? 'text-blue-500' : 'text-slate-400'
+                      o.status === 'Delivered' ? 'text-green-500' :
+                        o.status === 'Shipped' ? 'text-blue-500' : 'text-slate-400'
                       }`}>{o.status}</p>
                   </div>
                 </div>
@@ -266,8 +261,8 @@ const Dashboard: React.FC = () => {
               {notifications.slice(0, 4).map((notif) => (
                 <div key={notif.id} className="flex gap-3 sm:gap-4 group">
                   <div className={`mt-1.5 w-1.5 h-1.5 rounded-full shrink-0 transition-transform group-hover:scale-150 ${notif.type === 'Urgent' ? 'bg-red-500' :
-                      notif.type === 'Order' ? 'bg-orange-500' :
-                        notif.type === 'Payment' ? 'bg-green-500' : 'bg-blue-500'
+                    notif.type === 'Order' ? 'bg-orange-500' :
+                      notif.type === 'Payment' ? 'bg-green-500' : 'bg-blue-500'
                     }`} />
                   <div className="min-w-0">
                     <p className="text-xs sm:text-sm font-bold text-slate-700 truncate">{notif.title}</p>
@@ -322,13 +317,13 @@ const StatCard: React.FC<{ title: string; value: string | number; icon: React.Re
 
 const PerformanceCard: React.FC<{ label: string; value: string; status: 'good' | 'warning' | 'bad' }> = ({ label, value, status }) => (
   <div className={`p-4 rounded-xl border ${status === 'good' ? 'bg-green-50 border-green-100' :
-      status === 'warning' ? 'bg-yellow-50 border-yellow-100' :
-        'bg-red-50 border-red-100'
+    status === 'warning' ? 'bg-yellow-50 border-yellow-100' :
+      'bg-red-50 border-red-100'
     }`}>
     <p className="text-[9px] sm:text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">{label}</p>
     <p className={`text-lg sm:text-xl font-extrabold ${status === 'good' ? 'text-green-600' :
-        status === 'warning' ? 'text-yellow-600' :
-          'text-red-600'
+      status === 'warning' ? 'text-yellow-600' :
+        'text-red-600'
       }`}>{value}</p>
   </div>
 );
@@ -337,22 +332,22 @@ const AlertItem: React.FC<{ icon: React.ReactNode; title: string; message: strin
   <div
     onClick={action}
     className={`flex gap-3 p-3 sm:p-4 rounded-xl border cursor-pointer transition-all hover:shadow-md ${type === 'error' ? 'bg-red-50 border-red-100' :
-        type === 'warning' ? 'bg-yellow-50 border-yellow-100' :
-          'bg-blue-50 border-blue-100'
+      type === 'warning' ? 'bg-yellow-50 border-yellow-100' :
+        'bg-blue-50 border-blue-100'
       }`}
   >
     <div className={`mt-0.5 ${type === 'error' ? 'text-red-500' :
-        type === 'warning' ? 'text-yellow-600' :
-          'text-blue-500'
+      type === 'warning' ? 'text-yellow-600' :
+        'text-blue-500'
       }`}>{icon}</div>
     <div>
       <p className={`text-xs sm:text-sm font-bold ${type === 'error' ? 'text-red-800' :
-          type === 'warning' ? 'text-yellow-800' :
-            'text-blue-800'
+        type === 'warning' ? 'text-yellow-800' :
+          'text-blue-800'
         }`}>{title}</p>
       <p className={`text-[10px] sm:text-xs ${type === 'error' ? 'text-red-600' :
-          type === 'warning' ? 'text-yellow-600' :
-            'text-blue-600'
+        type === 'warning' ? 'text-yellow-600' :
+          'text-blue-600'
         }`}>{message}</p>
     </div>
   </div>

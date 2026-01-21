@@ -141,23 +141,28 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // Auth State
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-    return sessionStorage.getItem('luvarte_auth') === 'true';
+    if (typeof window !== 'undefined') {
+      return sessionStorage.getItem('luvarte_auth') === 'true';
+    }
+    return false;
   });
 
   const [seller, setSeller] = useState<SellerProfile | null>(() => {
-    const saved = sessionStorage.getItem('luvarte_seller');
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      if (!parsed.deliveryPreferences) parsed.deliveryPreferences = DEFAULT_PARTNERS;
-      if (!parsed.verification) parsed.verification = {
-        gstVerified: false,
-        panVerified: false,
-        bankVerified: false,
-        addressVerified: false,
-        documentsSubmitted: false,
-        agreementAccepted: false
-      };
-      return parsed;
+    if (typeof window !== 'undefined') {
+      const saved = sessionStorage.getItem('luvarte_seller');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (!parsed.deliveryPreferences) parsed.deliveryPreferences = DEFAULT_PARTNERS;
+        if (!parsed.verification) parsed.verification = {
+          gstVerified: false,
+          panVerified: false,
+          bankVerified: false,
+          addressVerified: false,
+          documentsSubmitted: false,
+          agreementAccepted: false
+        };
+        return parsed;
+      }
     }
     return null;
   });
