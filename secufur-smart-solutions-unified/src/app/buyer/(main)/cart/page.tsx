@@ -28,16 +28,12 @@ export default function CartPage() {
     saveForLater,
     moveToCart,
     removeSavedItem,
-    applyCoupon,
-    removeCoupon,
     setDeliveryPincode,
     setDeliveryAvailable,
   } = useCartStore();
 
-  const [couponCode, setCouponCode] = useState('');
   const [pincode, setPincode] = useState(deliveryPincode || '');
   const [isCheckingPincode, setIsCheckingPincode] = useState(false);
-  const [isApplyingCoupon, setIsApplyingCoupon] = useState(false);
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('en-IN', {
@@ -45,48 +41,6 @@ export default function CartPage() {
       currency: 'INR',
       minimumFractionDigits: 0,
     }).format(price);
-  };
-
-  const handleApplyCoupon = async () => {
-    if (!couponCode.trim()) {
-      toast.error('Please enter a coupon code');
-      return;
-    }
-
-    setIsApplyingCoupon(true);
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    // Mock coupon validation
-    if (couponCode.toUpperCase() === 'SAVE10') {
-      const discountAmt = Math.min((subtotal + customizationCost) * 0.1, 500);
-      applyCoupon({
-        code: 'SAVE10',
-        discountType: 'percentage',
-        discountValue: 10,
-        discountAmount: discountAmt,
-        maxDiscount: 500,
-        minOrderValue: 0,
-        description: '10% off up to Rs.500',
-      });
-      toast.success('Coupon applied successfully!');
-      setCouponCode('');
-    } else if (couponCode.toUpperCase() === 'FLAT500') {
-      applyCoupon({
-        code: 'FLAT500',
-        discountType: 'fixed',
-        discountValue: 500,
-        discountAmount: 500,
-        minOrderValue: 2000,
-        description: 'Flat Rs.500 off on orders above Rs.2000',
-      });
-      toast.success('Coupon applied successfully!');
-      setCouponCode('');
-    } else {
-      toast.error('Invalid coupon code');
-    }
-
-    setIsApplyingCoupon(false);
   };
 
   const handleCheckPincode = async () => {
@@ -304,47 +258,6 @@ export default function CartPage() {
                   <span className={styles.totalValue}>{formatPrice(total)}</span>
                 </div>
                 <p className={styles.taxNote}>Inclusive of all taxes</p>
-
-                {/* Coupon Section */}
-                <div className={styles.couponSection}>
-                  <h4 className={styles.couponTitle}>Apply Coupon</h4>
-                  {appliedCoupon ? (
-                    <div className={styles.appliedCoupon}>
-                      <div>
-                        <span className={styles.couponCode}>{appliedCoupon.code}</span>
-                        <span className={styles.couponDiscount}>
-                          {appliedCoupon.discountType === 'percentage'
-                            ? ` - ${appliedCoupon.discountValue}% off`
-                            : ` - ${formatPrice(appliedCoupon.discountValue)} off`}
-                        </span>
-                      </div>
-                      <button className={styles.removeCoupon} onClick={removeCoupon}>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <line x1="18" y1="6" x2="6" y2="18" />
-                          <line x1="6" y1="6" x2="18" y2="18" />
-                        </svg>
-                      </button>
-                    </div>
-                  ) : (
-                    <div className={styles.couponForm}>
-                      <Input
-                        className={styles.couponInput}
-                        placeholder="Enter coupon code"
-                        value={couponCode}
-                        onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
-                        size="sm"
-                      />
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={handleApplyCoupon}
-                        isLoading={isApplyingCoupon}
-                      >
-                        Apply
-                      </Button>
-                    </div>
-                  )}
-                </div>
 
                 {/* Pincode Section */}
                 <div className={styles.pincodeSection}>

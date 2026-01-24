@@ -162,7 +162,7 @@ export default function TermsPage() {
             <p>
               These terms shall be governed by and construed in accordance with the laws of India.
               Any disputes arising from these terms shall be subject to the exclusive jurisdiction
-              of the courts in Mumbai, Maharashtra.
+              of the courts in Gurugram, Haryana.
             </p>
           </section>
 
