@@ -1,8 +1,8 @@
 /* Navbar Component - NO BORDER RADIUS */
 .navbar {
   width: 100%;
-  background-color: var(--bg-primary);
-  border-bottom: var(--border);
+  background-color: #0f1f4d;
+  border-bottom: 1px solid #0a1433;
   z-index: var(--z-sticky);
 }
 
@@ -38,18 +38,18 @@
   font-weight: var(--font-weight-medium);
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-wide);
-  color: var(--text-primary);
+  color: #FFFFFF;
   text-decoration: none;
   transition: color var(--transition-fast);
   white-space: nowrap;
 }
 
 .navLink:hover {
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .navLink.active {
-  color: var(--accent-selected);
+  color: #FFFFFF;
   text-decoration: underline;
   text-underline-offset: 4px;
 }
@@ -61,7 +61,7 @@
   font-weight: var(--font-weight-bold);
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-tight);
-  color: var(--text-primary);
+  color: #FFFFFF;
   text-decoration: none;
   flex-shrink: 0;
 }
@@ -82,13 +82,13 @@
   height: 40px;
   background: transparent;
   border: none;
-  color: var(--text-primary);
+  color: #FFFFFF;
   cursor: pointer;
   transition: color var(--transition-fast);
 }
 
 .actionButton:hover {
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .actionButton svg {
@@ -115,8 +115,8 @@
   top: 100%;
   left: 0;
   right: 0;
-  background-color: var(--bg-primary);
-  border-bottom: var(--border);
+  background-color: #0f1f4d;
+  border-bottom: 1px solid #0a1433;
   animation: slideDown var(--transition-normal) ease;
 }
 
@@ -134,9 +134,9 @@
   font-weight: var(--font-weight-medium);
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-wide);
-  color: var(--text-primary);
+  color: #FFFFFF;
   text-decoration: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .mobileNavLink:last-child {
@@ -145,7 +145,7 @@
 
 .mobileNavLink:hover,
 .mobileNavLink.active {
-  background-color: rgba(0, 0, 0, 0.02);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .mobileDivider {
@@ -205,6 +205,7 @@
     opacity: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
