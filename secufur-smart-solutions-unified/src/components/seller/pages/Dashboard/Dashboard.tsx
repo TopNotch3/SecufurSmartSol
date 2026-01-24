@@ -255,26 +255,7 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-gray-100">
-            <h3 className="font-jakarta font-bold text-lg mb-4 sm:mb-6">Notifications</h3>
-            <div className="space-y-4 sm:space-y-6">
-              {notifications.slice(0, 4).map((notif) => (
-                <div key={notif.id} className="flex gap-3 sm:gap-4 group">
-                  <div className={`mt-1.5 w-1.5 h-1.5 rounded-full shrink-0 transition-transform group-hover:scale-150 ${notif.type === 'Urgent' ? 'bg-red-500' :
-                    notif.type === 'Order' ? 'bg-orange-500' :
-                      notif.type === 'Payment' ? 'bg-green-500' : 'bg-blue-500'
-                    }`} />
-                  <div className="min-w-0">
-                    <p className="text-xs sm:text-sm font-bold text-slate-700 truncate">{notif.title}</p>
-                    <p className="text-[10px] sm:text-xs text-slate-500 mt-1 leading-relaxed line-clamp-2">{notif.message}</p>
-                  </div>
-                </div>
-              ))}
-              {notifications.length === 0 && (
-                <p className="text-slate-400 text-xs italic">No notifications</p>
-              )}
-            </div>
-          </div>
+
         </div>
       </div>
     </div>

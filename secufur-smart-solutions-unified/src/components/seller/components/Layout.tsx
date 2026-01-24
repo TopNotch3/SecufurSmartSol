@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Sidebar from './Sidebar';
 import { useApp } from '@/context/seller/AppContext';
 import { Menu, X, LogOut, LayoutDashboard, Package, ShoppingCart, IndianRupee, MessageSquare, History, Settings, Bell } from 'lucide-react';
@@ -13,7 +13,9 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ onLogout, children }) => {
   const { seller, notifications } = useApp();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false); // Add notification state
   const pathname = usePathname();
+  const router = useRouter(); // Initialize router
 
   const unreadNotifications = notifications.filter(n => !n.read).length;
 
@@ -22,7 +24,7 @@ const Layout: React.FC<LayoutProps> = ({ onLogout, children }) => {
     { name: 'Products', path: '/seller/products', icon: Package },
     { name: 'Orders', path: '/seller/orders', icon: ShoppingCart },
     { name: 'Financials', path: '/seller/financials', icon: IndianRupee },
-    { name: 'Support', path: '/seller/support', icon: MessageSquare },
+    // Support removed
     { name: 'Audit Logs', path: '/seller/audit-logs', icon: History },
     { name: 'Settings', path: '/seller/settings', icon: Settings },
   ];
@@ -75,7 +77,7 @@ const Layout: React.FC<LayoutProps> = ({ onLogout, children }) => {
       )}
 
       <main className="flex-1 flex flex-col h-screen overflow-hidden">
-        <header className="h-14 sm:h-16 border-b border-gray-100 flex items-center justify-between px-4 sm:px-8 bg-white shrink-0 z-40">
+        <header className="h-14 sm:h-16 border-b border-gray-100 flex items-center justify-between px-4 sm:px-8 bg-white shrink-0 z-40 relative">
           <div className="flex items-center gap-3 sm:gap-4">
             <button
               onClick={() => setIsMobileMenuOpen(true)}
@@ -90,8 +92,11 @@ const Layout: React.FC<LayoutProps> = ({ onLogout, children }) => {
               </span>
             </h1>
           </div>
-          <div className="flex items-center gap-2 sm:gap-4">
-            <button className="relative p-2 hover:bg-gray-50 rounded-xl transition-all">
+          <div className="flex items-center gap-2 sm:gap-4 relative">
+            <button
+              className="relative p-2 hover:bg-gray-50 rounded-xl transition-all"
+              onClick={() => setShowNotifications(!showNotifications)}
+            >
               <Bell size={20} className="text-slate-400" />
               {unreadNotifications > 0 && (
                 <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center">
@@ -99,16 +104,57 @@ const Layout: React.FC<LayoutProps> = ({ onLogout, children }) => {
                 </span>
               )}
             </button>
+
+            {/* Notification Floating Modal */}
+            {showNotifications && (
+              <div className="absolute top-full right-0 mt-2 w-80 bg-white rounded-2xl shadow-xl border border-gray-100 p-4 z-50 animate-in fade-in slide-in-from-top-2">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="font-bold text-slate-800">Notifications</h3>
+                  <button onClick={() => setShowNotifications(false)} className="text-slate-400 hover:text-slate-600">
+                    <X size={16} />
+                  </button>
+                </div>
+                <div className="space-y-3 max-h-[300px] overflow-y-auto">
+                  {notifications.slice(0, 5).map((notif) => (
+                    <div key={notif.id} className="flex gap-3 p-2 hover:bg-gray-50 rounded-lg transition-colors">
+                      <div className={`mt-1.5 w-1.5 h-1.5 rounded-full shrink-0 ${notif.type === 'Urgent' ? 'bg-red-500' :
+                        notif.type === 'Order' ? 'bg-orange-500' :
+                          notif.type === 'Payment' ? 'bg-green-500' : 'bg-blue-500'
+                        }`} />
+                      <div>
+                        <p className="text-xs font-bold text-slate-700">{notif.title}</p>
+                        <p className="text-[10px] text-slate-500 mt-0.5 leading-relaxed">{notif.message}</p>
+                      </div>
+                    </div>
+                  ))}
+                  {notifications.length === 0 && (
+                    <p className="text-center text-slate-400 text-xs py-4">No new notifications</p>
+                  )}
+                </div>
+                <div className="mt-3 pt-3 border-t border-gray-100 text-center">
+                  <Link href="/seller/notifications" className="text-[10px] font-bold text-[#002366] uppercase hover:underline" onClick={() => setShowNotifications(false)}>
+                    View All
+                  </Link>
+                </div>
+              </div>
+            )}
+
             <div className="text-right hidden sm:block">
               <p className="text-sm font-bold text-slate-800">{seller?.contactPerson || 'Seller'}</p>
               <p className="text-[9px] sm:text-[10px] text-green-600 font-extrabold uppercase tracking-widest">
                 {seller?.verification?.agreementAccepted ? 'Verified' : 'Pending'}
               </p>
             </div>
-            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-[#002366] text-white flex items-center justify-center font-bold shadow-lg shadow-blue-900/20 text-sm">
+
+            {/* Clickable Profile Icon */}
+            <button
+              onClick={() => router.push('/seller/settings')}
+              className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-[#002366] text-white flex items-center justify-center font-bold shadow-lg shadow-blue-900/20 text-sm hover:scale-105 transition-transform"
+            >
               {(seller?.contactPerson || 'M').charAt(0).toUpperCase()}
-            </div>
+            </button>
           </div>
+
         </header>
 
         <div className="flex-1 overflow-y-auto relative flex flex-col">

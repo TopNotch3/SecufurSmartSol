@@ -26,7 +26,6 @@ const Sidebar: React.FC<SidebarProps> = ({ onLogout }) => {
     { name: 'Products', path: '/seller/products', icon: Package },
     { name: 'Orders', path: '/seller/orders', icon: ShoppingCart },
     { name: 'Financials', path: '/seller/financials', icon: IndianRupee },
-    { name: 'Support', path: '/seller/support', icon: MessageSquare },
     { name: 'Audit Logs', path: '/seller/audit-logs', icon: History },
     { name: 'Settings', path: '/seller/settings', icon: Settings },
   ];
