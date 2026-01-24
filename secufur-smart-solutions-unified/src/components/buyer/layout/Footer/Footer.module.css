@@ -1,8 +1,8 @@
 /* Footer Component - NO BORDER RADIUS */
 .footer {
-  background-color: var(--bg-secondary);
+  background-color: #0f1f4d;
   color: var(--text-inverted);
-  border-top: var(--border);
+  border-top: 1px solid #0a1433;
 }
 
 .container {

@@ -12,10 +12,8 @@ export interface NavbarProps {
 }
 
 const navLinks = [
-  { href: '/batteries', label: 'Batteries' },
-  { href: '/electronics', label: 'Electronics' },
-  { href: '/customized-batteries', label: 'Customized Batteries' },
-  { href: '/customized-electronics', label: 'Customized Electronics' },
+  { href: '/buyer/batteries', label: 'Batteries' },
+  { href: '/buyer/electronics', label: 'Electronics' },
 ];
 
 export const Navbar: React.FC<NavbarProps> = ({ position = 'sticky' }) => {
@@ -56,27 +54,26 @@ export const Navbar: React.FC<NavbarProps> = ({ position = 'sticky' }) => {
 
         {/* Center - Brand Logo */}
         <Link href="/buyer" className={styles.logo}>
-          LUVARTE
+          SECUFUR SMART SOLUTIONS
         </Link>
 
         {/* Right - Actions */}
         <div className={styles.actions}>
           {/* Search Button */}
-          <button
-            type="button"
+          <Link
+            href="/buyer/search"
             className={styles.actionButton}
-            onClick={toggleSearch}
             aria-label="Search"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <circle cx="11" cy="11" r="8" />
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
-          </button>
+          </Link>
 
           {/* Account Button (Desktop) */}
           <Link
-            href={isAuthenticated ? '/profile' : '/sign-in'}
+            href={isAuthenticated ? '/buyer/profile' : '/buyer/sign-in'}
             className={`${styles.actionButton} ${styles.hideOnMobile}`}
             aria-label={isAuthenticated ? 'Account' : 'Sign In'}
           >
@@ -154,7 +151,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, pathname, isAuthenticat
         ))}
         <div className={styles.mobileDivider} />
         <Link
-          href={isAuthenticated ? '/profile' : '/sign-in'}
+          href={isAuthenticated ? '/buyer/profile' : '/buyer/sign-in'}
           className={styles.mobileNavLink}
           onClick={closeMobileMenu}
         >

@@ -85,6 +85,7 @@ function BatteriesContent() {
   const [customizableOnly, setCustomizableOnly] = useState(searchParams.get('customizable') === 'true');
   const [inStockOnly, setInStockOnly] = useState(searchParams.get('inStock') === 'true');
   const [showFilters, setShowFilters] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -93,6 +94,17 @@ function BatteriesContent() {
       await new Promise((resolve) => setTimeout(resolve, 800));
 
       let filtered = [...mockProducts];
+
+      // Apply search filter
+      if (searchQuery) {
+        const lowerQuery = searchQuery.toLowerCase();
+        filtered = filtered.filter(
+          (p) =>
+            p.name.toLowerCase().includes(lowerQuery) ||
+            p.description.toLowerCase().includes(lowerQuery) ||
+            p.brand.toLowerCase().includes(lowerQuery)
+        );
+      }
 
       // Apply filters
       if (subcategory) {
@@ -131,7 +143,7 @@ function BatteriesContent() {
     };
 
     fetchProducts();
-  }, [subcategory, sortBy, priceMin, priceMax, selectedBrands, customizableOnly, inStockOnly, selectedVoltages, selectedCapacities]);
+  }, [subcategory, sortBy, priceMin, priceMax, selectedBrands, customizableOnly, inStockOnly, selectedVoltages, selectedCapacities, searchQuery]);
 
   const handleBrandChange = (brand: string) => {
     setSelectedBrands((prev) =>
@@ -185,43 +197,39 @@ function BatteriesContent() {
           </p>
         </div>
 
-        {/* Subcategories */}
-        <div className={styles.subcategories}>
-          {subcategories.map((sub) => (
-            <button
-              key={sub.value}
-              className={`${styles.subcategoryButton} ${subcategory === sub.value ? styles.active : ''}`}
-              onClick={() => setSubcategory(sub.value)}
-            >
-              {sub.label}
-            </button>
-          ))}
+        {/* Search Bar */}
+        <div className={styles.searchBar}>
+          <div className={styles.searchInputWrapper}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search batteries..."
+              className={styles.searchInput}
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                className={styles.clearSearchButton}
+                onClick={() => setSearchQuery('')}
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Toolbar */}
         <div className={styles.toolbar}>
           <div className={styles.toolbarLeft}>
-            <button
-              className={styles.filterToggle}
-              onClick={() => setShowFilters(!showFilters)}
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <line x1="4" y1="21" x2="4" y2="14" />
-                <line x1="4" y1="10" x2="4" y2="3" />
-                <line x1="12" y1="21" x2="12" y2="12" />
-                <line x1="12" y1="8" x2="12" y2="3" />
-                <line x1="20" y1="21" x2="20" y2="16" />
-                <line x1="20" y1="12" x2="20" y2="3" />
-                <line x1="1" y1="14" x2="7" y2="14" />
-                <line x1="9" y1="8" x2="15" y2="8" />
-                <line x1="17" y1="16" x2="23" y2="16" />
-              </svg>
-              Filters
-              {hasActiveFilters && <span className={styles.filterBadge} />}
-            </button>
             <span className={styles.resultCount}>{totalCount} Products</span>
-          </div>
-          <div className={styles.toolbarRight}>
             <Select
               options={sortOptions}
               value={sortBy}
@@ -280,35 +288,6 @@ function BatteriesContent() {
                   </label>
                 ))}
               </div>
-            </div>
-
-            {/* Voltage */}
-            <div className={styles.filterGroup}>
-              <h4 className={styles.filterTitle}>Voltage</h4>
-              <div className={styles.filterOptions}>
-                {voltageOptions.map((voltage) => (
-                  <label key={voltage} className={styles.filterOption}>
-                    <input
-                      type="checkbox"
-                      checked={selectedVoltages.includes(voltage)}
-                      onChange={() => handleVoltageChange(voltage)}
-                    />
-                    <span>{voltage}</span>
-                  </label>
-                ))}
-              </div>
-            </div>
-
-            {/* Customizable */}
-            <div className={styles.filterGroup}>
-              <label className={styles.filterOption}>
-                <input
-                  type="checkbox"
-                  checked={customizableOnly}
-                  onChange={(e) => setCustomizableOnly(e.target.checked)}
-                />
-                <span>Customizable Only</span>
-              </label>
             </div>
 
             {/* In Stock */}

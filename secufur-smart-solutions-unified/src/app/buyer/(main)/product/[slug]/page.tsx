@@ -24,7 +24,7 @@ const generateMockProduct = (slug: string): Product => {
     shortDescription: 'Premium quality product with excellent performance',
     category,
     subcategory: 'general',
-    brand: 'LUVARTE',
+    brand: 'Secufur Smart Solutions',
     images: [
       { id: '1', url: '/images/product-1.jpg', alt: 'Product main view' },
       { id: '2', url: '/images/product-2.jpg', alt: 'Product side view' },
@@ -58,6 +58,22 @@ const generateMockProduct = (slug: string): Product => {
       basePrice: 9999,
       manufacturingTime: 14,
     } : undefined,
+    detailedDescription: [
+      'This is a premium product designed for maximum performance and reliability.',
+      'Built with high-quality materials and backed by our comprehensive warranty program.',
+      'Perfect for both commercial and residential applications.',
+      'Features advanced technology for optimal efficiency and longevity.',
+    ],
+    sellerInfo: {
+      name: 'Secufur Smart Solutions',
+      rating: 4.8,
+      totalProducts: 150,
+      responseTime: '2 hours',
+      shipOnTime: 98,
+      location: 'Mumbai, Maharashtra, India',
+      email: 'support@secufur.com',
+      phone: '+91 98765 43210',
+    },
     specifications: [
       { label: 'Voltage', value: '12', unit: 'V' },
       { label: 'Capacity', value: '50', unit: 'Ah' },
@@ -132,7 +148,7 @@ const mockReviews = [
   },
 ];
 
-type TabType = 'specifications' | 'reviews' | 'faqs';
+type TabType = 'description' | 'seller' | 'reviews' | 'faqs';
 
 export default function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = use(params);
@@ -142,10 +158,12 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
 
   const [product, setProduct] = useState<Product | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<TabType>('specifications');
+  const [activeTab, setActiveTab] = useState<TabType>('description');
   const [quantity, setQuantity] = useState(1);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [expandedFaq, setExpandedFaq] = useState<string | null>(null);
+  const [showReviewModal, setShowReviewModal] = useState(false);
+  const [reviewForm, setReviewForm] = useState({ rating: 5, title: '', content: '' });
 
   // Customization state
   const [selectedVoltage, setSelectedVoltage] = useState<CustomizationOption | null>(null);
@@ -206,13 +224,13 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
 
     const customization: SelectedCustomization | undefined = product.isCustomizable && selectedVoltage && selectedCapacity
       ? {
-          voltage: selectedVoltage,
-          capacity: selectedCapacity,
-          connector: selectedConnector || undefined,
-          quantity,
-          totalPrice: calculateCustomizationPrice(),
-          manufacturingTime: getManufacturingTime(),
-        }
+        voltage: selectedVoltage,
+        capacity: selectedCapacity,
+        connector: selectedConnector || undefined,
+        quantity,
+        totalPrice: calculateCustomizationPrice(),
+        manufacturingTime: getManufacturingTime(),
+      }
       : undefined;
 
     addToCart({
@@ -323,7 +341,15 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
               <span className={styles.ratingText}>
                 {product.rating.average.toFixed(1)} ({product.reviewCount} reviews)
               </span>
-              <button className={styles.reviewLink} onClick={() => setActiveTab('reviews')}>
+              <button
+                className={styles.reviewLink}
+                onClick={() => {
+                  setActiveTab('reviews');
+                  setTimeout(() => {
+                    document.querySelector(`.${styles.tabsSection}`)?.scrollIntoView({ behavior: 'smooth' });
+                  }, 100);
+                }}
+              >
                 Write a Review
               </button>
             </div>
@@ -498,46 +524,6 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                   Buy Now
                 </Button>
               </div>
-              <div className={styles.secondaryActions}>
-                <button className={styles.secondaryAction} onClick={handleWishlistToggle}>
-                  <svg viewBox="0 0 24 24" fill={isInWishlist(product.id) ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2">
-                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-                  </svg>
-                  {isInWishlist(product.id) ? 'In Wishlist' : 'Add to Wishlist'}
-                </button>
-                <button className={styles.secondaryAction}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
-                    <polyline points="16 6 12 2 8 6" />
-                    <line x1="12" y1="2" x2="12" y2="15" />
-                  </svg>
-                  Share
-                </button>
-              </div>
-            </div>
-
-            {/* Delivery Info */}
-            <div className={styles.deliveryInfo}>
-              <h4 className={styles.deliveryTitle}>Delivery Information</h4>
-              <div className={styles.deliveryOptions}>
-                <div className={styles.deliveryOption}>
-                  <svg className={styles.deliveryIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <rect x="1" y="3" width="15" height="13" />
-                    <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
-                    <circle cx="5.5" cy="18.5" r="2.5" />
-                    <circle cx="18.5" cy="18.5" r="2.5" />
-                  </svg>
-                  <span>Standard Delivery: {product.deliveryEstimate.standardDays} days</span>
-                </div>
-                {product.deliveryEstimate.expressAvailable && (
-                  <div className={styles.deliveryOption}>
-                    <svg className={styles.deliveryIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                    </svg>
-                    <span>Express Delivery: {product.deliveryEstimate.expressDays} days</span>
-                  </div>
-                )}
-              </div>
             </div>
           </div>
         </div>
@@ -546,10 +532,16 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         <div className={styles.tabsSection}>
           <div className={styles.tabs}>
             <button
-              className={`${styles.tab} ${activeTab === 'specifications' ? styles.active : ''}`}
-              onClick={() => setActiveTab('specifications')}
+              className={`${styles.tab} ${activeTab === 'description' ? styles.active : ''}`}
+              onClick={() => setActiveTab('description')}
             >
-              Specifications
+              Description
+            </button>
+            <button
+              className={`${styles.tab} ${activeTab === 'seller' ? styles.active : ''}`}
+              onClick={() => setActiveTab('seller')}
+            >
+              Seller Details
             </button>
             <button
               className={`${styles.tab} ${activeTab === 'reviews' ? styles.active : ''}`}
@@ -566,17 +558,70 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
           </div>
 
           <div className={styles.tabContent}>
-            {/* Specifications Tab */}
-            {activeTab === 'specifications' && (
-              <div className={styles.specifications}>
-                {product.specifications.map((spec, index) => (
-                  <div key={index} className={styles.specItem}>
-                    <span className={styles.specLabel}>{spec.label}</span>
-                    <span className={styles.specValue}>
-                      {spec.value} {spec.unit}
-                    </span>
-                  </div>
+            {/* Description Tab */}
+            {activeTab === 'description' && (
+              <div className={styles.description}>
+                {product.detailedDescription?.map((paragraph: string, index: number) => (
+                  <p key={index}>{paragraph}</p>
                 ))}
+              </div>
+            )}
+
+            {/* Seller Details Tab */}
+            {activeTab === 'seller' && product.sellerInfo && (
+              <div className={styles.sellerDetails}>
+                <h3>Shop Info</h3>
+                <div className={styles.sellerCard}>
+                  <div className={styles.sellerHeader}>
+                    <div className={styles.sellerAvatar}>
+                      {product.sellerInfo.name.charAt(0)}
+                    </div>
+                    <div>
+                      <h4 className={styles.sellerName}>{product.sellerInfo.name}</h4>
+                      <div className={styles.sellerRating}>
+                        <span className={styles.stars}>{'★'.repeat(Math.round(product.sellerInfo.rating))}</span>
+                        <span>{product.sellerInfo.rating.toFixed(1)}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.sellerStats}>
+                    <div className={styles.sellerStat}>
+                      <span className={styles.statLabel}>Total Products</span>
+                      <span className={styles.statValue}>{product.sellerInfo.totalProducts}</span>
+                    </div>
+                    <div className={styles.sellerStat}>
+                      <span className={styles.statLabel}>Response Time</span>
+                      <span className={styles.statValue}>{product.sellerInfo.responseTime}</span>
+                    </div>
+                    <div className={styles.sellerStat}>
+                      <span className={styles.statLabel}>Ship on Time</span>
+                      <span className={styles.statValue}>{product.sellerInfo.shipOnTime}%</span>
+                    </div>
+                  </div>
+                  <div className={styles.sellerContact}>
+                    <h4>Contact Details</h4>
+                    <div className={styles.contactItem}>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                        <circle cx="12" cy="10" r="3" />
+                      </svg>
+                      <span>{product.sellerInfo.location}</span>
+                    </div>
+                    <div className={styles.contactItem}>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                        <polyline points="22,6 12,13 2,6" />
+                      </svg>
+                      <a href={`mailto:${product.sellerInfo.email}`}>{product.sellerInfo.email}</a>
+                    </div>
+                    <div className={styles.contactItem}>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                      </svg>
+                      <a href={`tel:${product.sellerInfo.phone}`}>{product.sellerInfo.phone}</a>
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
 
@@ -611,7 +656,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                       ))}
                     </div>
                   </div>
-                  <Button>Write a Review</Button>
+                  <Button onClick={() => setShowReviewModal(true)}>Write a Review</Button>
                 </div>
 
                 <div className={styles.reviewsList}>
@@ -673,6 +718,72 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
             )}
           </div>
         </div>
+
+        {/* Review Modal */}
+        {showReviewModal && (
+          <div className={styles.modalOverlay} onClick={() => setShowReviewModal(false)}>
+            <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+              <div className={styles.modalHeader}>
+                <h3>Write a Review</h3>
+                <button className={styles.modalClose} onClick={() => setShowReviewModal(false)}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
+              </div>
+              <div className={styles.modalBody}>
+                <div className={styles.formGroup}>
+                  <label>Rating</label>
+                  <div className={styles.starRating}>
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        type="button"
+                        className={`${styles.starButton} ${star <= reviewForm.rating ? styles.active : ''}`}
+                        onClick={() => setReviewForm({ ...reviewForm, rating: star })}
+                      >
+                        ★
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className={styles.formGroup}>
+                  <label>Review Title</label>
+                  <input
+                    type="text"
+                    value={reviewForm.title}
+                    onChange={(e) => setReviewForm({ ...reviewForm, title: e.target.value })}
+                    placeholder="Summarize your experience"
+                    className={styles.formInput}
+                  />
+                </div>
+                <div className={styles.formGroup}>
+                  <label>Review</label>
+                  <textarea
+                    value={reviewForm.content}
+                    onChange={(e) => setReviewForm({ ...reviewForm, content: e.target.value })}
+                    placeholder="Share your thoughts about this product"
+                    className={styles.formTextarea}
+                    rows={5}
+                  />
+                </div>
+              </div>
+              <div className={styles.modalFooter}>
+                <Button variant="outline" onClick={() => setShowReviewModal(false)}>
+                  Cancel
+                </Button>
+                <Button onClick={() => {
+                  toast.success('Review submitted successfully!');
+                  setShowReviewModal(false);
+                  setReviewForm({ rating: 5, title: '', content: '' });
+                }}>
+                  Submit Review
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

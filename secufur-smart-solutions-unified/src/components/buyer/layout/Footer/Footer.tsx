@@ -5,26 +5,21 @@ import Link from 'next/link';
 import styles from './Footer.module.css';
 
 const companyLinks = [
-  { href: '/about', label: 'About Us' },
-  { href: '/size-guide', label: 'Size Guide' },
-  { href: '/shipping', label: 'Shipping' },
-  { href: '/news', label: 'News' },
+  { href: '/buyer/about', label: 'About Us' },
 ];
 
 const catalogLinks = [
-  { href: '/batteries', label: 'Batteries' },
-  { href: '/electronics', label: 'Electronics' },
-  { href: '/customized-batteries', label: 'Customized Batteries' },
-  { href: '/customized-electronics', label: 'Customized Electronics' },
+  { href: '/buyer/batteries', label: 'Batteries' },
+  { href: '/buyer/electronics', label: 'Electronics' },
 ];
 
 const legalLinks = [
-  { href: '/terms', label: 'Terms of Service' },
-  { href: '/privacy', label: 'Privacy Policy' },
-  { href: '/cookie-policy', label: 'Cookie Policy' },
-  { href: '/return-policy', label: 'Return Policy' },
-  { href: '/warranty', label: 'Warranty Policy' },
-  { href: '/battery-safety', label: 'Battery Safety' },
+  { href: '/buyer/terms', label: 'Terms of Service' },
+  { href: '/buyer/privacy', label: 'Privacy Policy' },
+  { href: '/buyer/cookie-policy', label: 'Cookie Policy' },
+  { href: '/buyer/return-policy', label: 'Return Policy' },
+  { href: '/buyer/warranty', label: 'Warranty Policy' },
+  { href: '/buyer/battery-safety', label: 'Battery Safety' },
 ];
 
 const socialLinks = [
@@ -78,7 +73,7 @@ export const Footer: React.FC = () => {
       {/* Top Section with Logo */}
       <div className={styles.topSection}>
         <Link href="/buyer" className={styles.logo}>
-          LUVARTE
+          SECUFUR SMART SOLUTIONS
         </Link>
       </div>
 
@@ -133,39 +128,17 @@ export const Footer: React.FC = () => {
             <ul className={styles.contactList}>
               <li className={styles.contactItem}>
                 <span className={styles.contactLabel}>Email</span>
-                <a href="mailto:support@luvarte.com" className={styles.link}>
-                  support@luvarte.com
+                <a href="mailto:support@secufur.com" className={styles.link}>
+                  support@secufur.com
                 </a>
               </li>
               <li className={styles.contactItem}>
                 <span className={styles.contactLabel}>Phone</span>
-                <a href="tel:+1800123456" className={styles.link}>
-                  +1 800 123 456
+                <a href="tel:+919876543210" className={styles.link}>
+                  +91 98765 43210
                 </a>
-              </li>
-              <li className={styles.contactItem}>
-                <span className={styles.contactLabel}>Store Locations</span>
-                <Link href="/buyer/store-locations" className={styles.link}>
-                  Find a Store
-                </Link>
               </li>
             </ul>
-
-            {/* Social Media Icons */}
-            <div className={styles.socialLinks}>
-              {socialLinks.map((social) => (
-                <a
-                  key={social.href}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.socialLink}
-                  aria-label={social.label}
-                >
-                  {social.icon}
-                </a>
-              ))}
-            </div>
           </div>
         </div>
       </div>
@@ -174,7 +147,7 @@ export const Footer: React.FC = () => {
       <div className={styles.bottomSection}>
         <div className={styles.container}>
           <p className={styles.copyright}>
-            &copy; {currentYear} LUVARTE. All rights reserved.
+            &copy; {currentYear} SECUFUR SMART SOLUTIONS. All rights reserved.
           </p>
           <div className={styles.paymentMethods}>
             <span className={styles.paymentLabel}>We Accept:</span>

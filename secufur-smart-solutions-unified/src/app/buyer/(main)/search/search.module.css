@@ -40,7 +40,7 @@
 
 .searchInput {
   width: 100%;
-  padding: var(--spacing-md) var(--spacing-3xl);
+  padding: var(--spacing-md) var(--spacing-3xl) !important;
   border: var(--border);
   border-radius: 0;
   font-family: var(--font-body);

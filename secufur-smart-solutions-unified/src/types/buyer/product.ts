@@ -25,6 +25,7 @@ export interface Product {
   slug: string;
   description: string;
   shortDescription: string;
+  detailedDescription?: string[];
   category: ProductCategory;
   subcategory?: string;
   brand: string;
@@ -51,6 +52,7 @@ export interface Product {
   dimensions?: ProductDimensions;
   weight?: number;
   warranty?: WarrantyInfo;
+  sellerInfo?: SellerInfo;
   createdAt: string;
   updatedAt: string;
 }
@@ -189,6 +191,17 @@ export interface WarrantyInfo {
   unit: 'months' | 'years';
   description: string;
   terms?: string;
+}
+
+export interface SellerInfo {
+  name: string;
+  rating: number;
+  totalProducts: number;
+  responseTime: string;
+  shipOnTime: number;
+  location: string;
+  email: string;
+  phone: string;
 }
 
 export interface ProductFilters {
