@@ -17,7 +17,7 @@ export default function TermsPage() {
           <section className={styles.section}>
             <h2>1. Acceptance of Terms</h2>
             <p>
-              By accessing and using the LUVARTE website and services, you accept and agree to be bound by
+              By accessing and using the Secufur Smart Solutions website and services, you accept and agree to be bound by
               the terms and provisions of this agreement. If you do not agree to these terms, please do not
               use our services.
             </p>
@@ -26,16 +26,10 @@ export default function TermsPage() {
           <section className={styles.section}>
             <h2>2. Description of Services</h2>
             <p>
-              LUVARTE provides an online platform for purchasing batteries, electronics, and customized
-              energy solutions. Our services include:
+              Secufur Smart Solutions provides an online platform for purchasing batteries, electronics, and customized
+              power solutions. Our services include product browsing, ordering, customization, and customer
+              support.
             </p>
-            <ul>
-              <li>Sale of standard and customized battery products</li>
-              <li>Sale of electronics and inverters</li>
-              <li>Custom battery configuration and manufacturing</li>
-              <li>Delivery and installation services (where applicable)</li>
-              <li>After-sales support and warranty services</li>
-            </ul>
           </section>
 
           <section className={styles.section}>
@@ -130,7 +124,7 @@ export default function TermsPage() {
             <h2>10. Intellectual Property</h2>
             <p>
               All content on this website, including text, graphics, logos, images, and software,
-              is the property of LUVARTE or its content suppliers and is protected by intellectual
+              is the property of Secufur Smart Solutions or its content suppliers and is protected by intellectual
               property laws. You may not reproduce, distribute, or create derivative works without
               our prior written consent.
             </p>
@@ -139,7 +133,7 @@ export default function TermsPage() {
           <section className={styles.section}>
             <h2>11. Limitation of Liability</h2>
             <p>
-              To the maximum extent permitted by law, LUVARTE shall not be liable for any indirect,
+              To the maximum extent permitted by law, Secufur Smart Solutions shall not be liable for any indirect,
               incidental, special, consequential, or punitive damages arising out of or related to
               your use of our services or products.
             </p>
@@ -148,7 +142,7 @@ export default function TermsPage() {
           <section className={styles.section}>
             <h2>12. Indemnification</h2>
             <p>
-              You agree to indemnify and hold harmless LUVARTE and its officers, directors, employees,
+              You agree to indemnify and hold harmless Secufur Smart Solutions and its officers, directors, employees,
               and agents from any claims, damages, losses, or expenses arising out of your use of our
               services or violation of these terms.
             </p>
@@ -178,9 +172,9 @@ export default function TermsPage() {
               For questions about these Terms of Service, please contact us at:
             </p>
             <div className={styles.contactInfo}>
-              <p>Email: legal@luvarte.com</p>
-              <p>Phone: +91 1800 123 4567</p>
-              <p>Address: LUVARTE Energy Solutions, 123 Industrial Area, Sector 5, Mumbai, Maharashtra 400001</p>
+              <p>Email: legal@secufur.com</p>
+              <p>Phone: +91 98765 43210</p>
+              <p>Address: Secufur Smart Solutions, 123 Industrial Area, Sector 18, Gurugram, Haryana 122015, India</p>
             </div>
           </section>
         </div>

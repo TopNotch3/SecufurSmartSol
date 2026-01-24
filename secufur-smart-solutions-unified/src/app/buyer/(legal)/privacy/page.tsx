@@ -17,7 +17,7 @@ export default function PrivacyPage() {
           <section className={styles.section}>
             <h2>1. Introduction</h2>
             <p>
-              LUVARTE Energy Solutions (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) is committed to protecting your privacy.
+              Secufur Smart Solutions (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) is committed to protecting your privacy.
               This Privacy Policy explains how we collect, use, disclose, and safeguard your information
               when you visit our website and use our services.
             </p>
@@ -137,7 +137,7 @@ export default function PrivacyPage() {
               <li>Opt out of marketing communications</li>
             </ul>
             <p>
-              To exercise these rights, please contact us at privacy@luvarte.com.
+              To exercise these rights, please contact us at privacy@secufur.com.
             </p>
           </section>
 
@@ -177,9 +177,9 @@ export default function PrivacyPage() {
             </p>
             <div className={styles.contactInfo}>
               <p>Data Protection Officer</p>
-              <p>Email: privacy@luvarte.com</p>
-              <p>Phone: +91 1800 123 4567</p>
-              <p>Address: LUVARTE Energy Solutions, 123 Industrial Area, Sector 5, Mumbai, Maharashtra 400001</p>
+              <p>Email: privacy@secufur.com</p>
+              <p>Phone: +91 98765 43210</p>
+              <p>Address: Secufur Smart Solutions, 123 Industrial Area, Sector 18, Gurugram, Haryana 122015, India</p>
             </div>
           </section>
         </div>
