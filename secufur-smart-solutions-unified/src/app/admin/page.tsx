@@ -7,7 +7,7 @@ export default function AdminLanding() {
     const router = useRouter();
 
     useEffect(() => {
-        router.push('/admin/dashboard');
+        router.push('/admin/login');
     }, [router]);
 
     return null;

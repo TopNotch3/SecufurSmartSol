@@ -1,10 +1,36 @@
-import { ShieldCheck, Globe, Lock, FileText } from 'lucide-react';
+'use client';
+
+import { ShieldCheck, Globe, Lock, FileText, Loader2 } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState, FormEvent } from 'react';
 import { Button } from '@/components/admin/ui/button';
 import { Input } from '@/components/admin/ui/input';
 import { Label } from '@/components/admin/ui/label';
 
 export default function AdminLoginPage() {
+    const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
+    const [email, setEmail] = useState('admin@luvarte.in');
+    const [password, setPassword] = useState('password');
+    const [error, setError] = useState('');
+
+    const handleLogin = async (e: FormEvent) => {
+        e.preventDefault();
+        setIsLoading(true);
+        setError('');
+
+        // Simulate network delay
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        if (email === 'admin@luvarte.in' && password === 'admin123') {
+            router.push('/admin/dashboard');
+        } else {
+            setError('Invalid email or password. Please try again.');
+            setIsLoading(false);
+        }
+    };
+
     return (
         <div className="min-h-screen w-full grid md:grid-cols-2">
             {/* Left Branding Section */}
@@ -20,7 +46,7 @@ export default function AdminLoginPage() {
                 <div className="z-10 my-10">
                     <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-4">
                         Empowering Indian<br />
-                        Merchants with Global<br />
+                        Sellers with Global<br />
                         Standards.
                     </h2>
                     <p className="text-blue-100/80 mb-8 max-w-md">
@@ -71,17 +97,23 @@ export default function AdminLoginPage() {
                 <div className="max-w-md w-full mx-auto space-y-8">
 
                     <div className="space-y-2">
-                        <h2 className="text-3xl font-bold text-slate-900">Merchant Portal</h2>
+                        <h2 className="text-3xl font-bold text-slate-900">Admin Login</h2>
                         <p className="text-slate-500">Access your dashboard with secure credentials.</p>
                     </div>
 
-                    <form className="space-y-6">
+                    <form onSubmit={handleLogin} className="space-y-6">
+                        {error && (
+                            <div className="p-3 text-sm text-red-500 bg-red-50 border border-red-200 rounded-md">
+                                {error}
+                            </div>
+                        )}
                         <div className="space-y-2">
-                            <Label htmlFor="email" className="text-xs font-bold text-slate-400 uppercase tracking-wider">Merchant Email</Label>
+                            <Label htmlFor="email" className="text-xs font-bold text-slate-400 uppercase tracking-wider">Email</Label>
                             <Input
                                 id="email"
                                 type="email"
-                                defaultValue="admin@luvarte.in"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 className="bg-slate-50 border-slate-100 focus:border-blue-900 focus:ring-blue-900/20 h-12"
                             />
                         </div>
@@ -91,7 +123,8 @@ export default function AdminLoginPage() {
                             <Input
                                 id="password"
                                 type="password"
-                                defaultValue="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                                 className="bg-slate-50 border-slate-100 focus:border-blue-900 focus:ring-blue-900/20 h-12 font-mono tracking-widest"
                             />
                         </div>
@@ -101,16 +134,23 @@ export default function AdminLoginPage() {
                             <p className="text-sm font-mono text-slate-600">admin@luvarte.in / admin123</p>
                         </div>
 
-                        <Button className="w-full h-12 bg-[#001f54] hover:bg-[#00153a] text-white font-semibold tracking-wide shadow-lg shadow-blue-900/20">
-                            SECURE LOGIN
+                        <Button
+                            disabled={isLoading}
+                            type="submit"
+                            className="w-full h-12 bg-[#001f54] hover:bg-[#00153a] text-white font-semibold tracking-wide shadow-lg shadow-blue-900/20"
+                        >
+                            {isLoading ? (
+                                <>
+                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                    VERIFYING...
+                                </>
+                            ) : (
+                                'SECURE LOGIN'
+                            )}
                         </Button>
                     </form>
 
-                    <div className="text-center pt-4">
-                        <Link href="#" className="text-xs font-bold text-slate-500 hover:text-[#001f54] uppercase tracking-widest transition-colors">
-                            Register as new merchant
-                        </Link>
-                    </div>
+
 
                 </div>
             </div>
