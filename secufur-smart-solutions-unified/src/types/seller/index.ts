@@ -36,11 +36,14 @@ export interface SellerVerification {
 export interface SellerProfile {
   id: string;
   businessName: string;
+  tradeName?: string; // New: Trade Name if different
   brandName: string;
   legalEntity: 'Individual' | 'Proprietorship' | 'Partnership' | 'Pvt Ltd' | 'LLP';
+  constitutionDoc?: string; // New: Upload URL for Certificate of Info/Partnership Deed
   gstNumber: string;
   panNumber: string;
   cinNumber?: string;
+  fssaiLicense?: string; // New: Industry specific
   address: {
     line1: string;
     line2?: string;
@@ -62,6 +65,7 @@ export interface SellerProfile {
   status: SellerStatus;
   verification: SellerVerification;
   complianceAgreed: boolean;
+  authenticityUndertaking: boolean; // New: Mandatory undertaking
   commissionRate: number;
   settlementCycle: 'Weekly' | 'Biweekly' | 'Monthly';
   users: SellerUser[];
@@ -103,6 +107,17 @@ export interface Product {
   tags: string[];
   compliance: ProductCompliance;
   variants?: ProductVariant[];
+
+  // Legal Metrology & Compliance Fields
+  manufacturerDetails?: {
+    name: string;
+    address: string;
+    contact?: string;
+  };
+  countryOfOrigin?: string;
+  manufacturingDate?: string;
+  expiryDate?: string;
+
   weight: number;
   dimensions: {
     length: number;

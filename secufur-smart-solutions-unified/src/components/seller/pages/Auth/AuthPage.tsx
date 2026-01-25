@@ -35,11 +35,14 @@ const AuthPage: React.FC = () => {
 
     // Business
     businessName: '',
+    tradeName: '', // New: Trade Name
     legalEntity: 'Pvt Ltd' as any,
     panNumber: '',
     gstNumber: '',
+    fssaiLicense: '', // New: FSSAI License
     panDoc: null as File | null,
     gstDoc: null as File | null,
+    constitutionDoc: null as File | null, // New: Constitution Doc
 
     // Address
     address: { line1: '', city: '', state: '', pincode: '' },
@@ -56,7 +59,8 @@ const AuthPage: React.FC = () => {
       bankName: ''
     },
     cancelledChequeDoc: null as File | null,
-    trademarkDoc: null as File | null
+    trademarkDoc: null as File | null,
+    authenticityUndertaking: false // New: Undertaking
   });
 
   const handleFileChange = (field: keyof typeof formData, file: File | null) => {
@@ -111,6 +115,10 @@ const AuthPage: React.FC = () => {
           setError('Please upload GST Certificate PDF');
           return;
         }
+        if (!formData.constitutionDoc) {
+          setError('Please upload Certificate of Incorporation / Partnership Deed');
+          return;
+        }
       }
       if (step === 3) {
         if (!formData.signatoryName || !formData.address.line1 || !formData.address.city || !formData.address.state || !formData.address.pincode) {
@@ -119,6 +127,10 @@ const AuthPage: React.FC = () => {
         }
         if (!formData.addressProofDoc) {
           setError('Please upload Address Proof PDF');
+          return;
+        }
+        if (!formData.identityProofDoc) {
+          setError('Please upload Identity Proof PDF');
           return;
         }
       }
@@ -138,6 +150,11 @@ const AuthPage: React.FC = () => {
       return;
     }
 
+    if (!formData.authenticityUndertaking) {
+      setError('You must agree to the Product Authenticity Undertaking to proceed.');
+      return;
+    }
+
     // Final submission
     setLoading(true);
     setTimeout(() => {
@@ -145,10 +162,11 @@ const AuthPage: React.FC = () => {
         ...formData,
         contactPerson: `${formData.firstName} ${formData.lastName}`,
         status: 'Applied',
-        complianceAgreed: false
+        complianceAgreed: false,
+        constitutionDoc: formData.constitutionDoc?.name // Mocking file upload to URL
       }, formData.password);
-      setSuccess('Registration successful! Redirecting to dashboard...');
-      setTimeout(() => router.push('/seller'), 1500);
+      setSuccess('Registration successful! Redirecting to verification status...');
+      setTimeout(() => router.push('/seller/under-review'), 1500);
     }, 1500);
   };
 
@@ -308,6 +326,10 @@ const AuthPage: React.FC = () => {
                       <input required value={formData.businessName} onChange={e => setFormData({ ...formData, businessName: e.target.value })} type="text" placeholder="Your Business Name" className="w-full px-5 sm:px-6 py-3.5 sm:py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-50 outline-none text-sm" />
                     </div>
                     <div className="space-y-1">
+                      <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Trade Name (Optional)</label>
+                      <input value={formData.tradeName} onChange={e => setFormData({ ...formData, tradeName: e.target.value })} type="text" placeholder="If different from Business Name" className="w-full px-5 sm:px-6 py-3.5 sm:py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-50 outline-none text-sm" />
+                    </div>
+                    <div className="space-y-1">
                       <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Business Entity Type</label>
                       <select value={formData.legalEntity} onChange={e => setFormData({ ...formData, legalEntity: e.target.value as any })} className="w-full px-5 sm:px-6 py-3.5 sm:py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-50 outline-none text-sm">
                         <option>Select Entity Type</option>
@@ -318,6 +340,8 @@ const AuthPage: React.FC = () => {
                         <option>LLP</option>
                       </select>
                     </div>
+                    <FileUpload label="UPLOAD CERTIFICATE OF INCORPORATION / PARTNERSHIP DEED" file={formData.constitutionDoc} onFileSelect={(f) => handleFileChange('constitutionDoc', f)} />
+
                     <div className="space-y-1">
                       <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">PAN Number</label>
                       <input required value={formData.panNumber} onChange={e => setFormData({ ...formData, panNumber: e.target.value })} type="text" placeholder="ABCDE1234F" className="w-full px-5 sm:px-6 py-3.5 sm:py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-50 outline-none text-sm font-mono" />
@@ -329,6 +353,11 @@ const AuthPage: React.FC = () => {
                       <input required value={formData.gstNumber} onChange={e => setFormData({ ...formData, gstNumber: e.target.value })} type="text" placeholder="22AAAAA0000A1Z5" className="w-full px-5 sm:px-6 py-3.5 sm:py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-50 outline-none text-sm font-mono" />
                     </div>
                     <FileUpload label="UPLOAD GSTIN CERTIFICATE (REG-06)" file={formData.gstDoc} onFileSelect={(f) => handleFileChange('gstDoc', f)} />
+
+                    <div className="space-y-1">
+                      <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">FSSAI License (Optional)</label>
+                      <input value={formData.fssaiLicense} onChange={e => setFormData({ ...formData, fssaiLicense: e.target.value })} type="text" placeholder="If selling food products" className="w-full px-5 sm:px-6 py-3.5 sm:py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-50 outline-none text-sm font-mono" />
+                    </div>
                   </div>
                 )}
 
@@ -401,9 +430,11 @@ const AuthPage: React.FC = () => {
                     <div className="space-y-2">
                       <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider">Business Details</h4>
                       <p className="text-sm"><strong>Business Name:</strong> {formData.businessName}</p>
+                      {formData.tradeName && <p className="text-sm"><strong>Trade Name:</strong> {formData.tradeName}</p>}
                       <p className="text-sm"><strong>Entity Type:</strong> {formData.legalEntity}</p>
                       <p className="text-sm"><strong>PAN:</strong> {formData.panNumber}</p>
                       <p className="text-sm"><strong>GSTIN:</strong> {formData.gstNumber}</p>
+                      {formData.fssaiLicense && <p className="text-sm"><strong>FSSAI:</strong> {formData.fssaiLicense}</p>}
                     </div>
 
                     <div className="space-y-2">
@@ -416,6 +447,19 @@ const AuthPage: React.FC = () => {
                       <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider">Banking Information</h4>
                       <p className="text-sm"><strong>Account Number:</strong> {formData.bankDetails.accountNumber}</p>
                       <p className="text-sm"><strong>IFSC Code:</strong> {formData.bankDetails.ifsc}</p>
+                    </div>
+
+                    <div className="pt-4 border-t">
+                      <label className="flex items-start gap-3 cursor-pointer group">
+                        <div className={`mt-0.5 w-5 h-5 rounded border flex items-center justify-center transition-colors ${formData.authenticityUndertaking ? 'bg-[#002366] border-[#002366]' : 'border-gray-300 group-hover:border-[#002366]'}`}>
+                          {formData.authenticityUndertaking && <CheckCircle size={14} className="text-white" />}
+                        </div>
+                        <input type="checkbox" className="hidden" checked={formData.authenticityUndertaking} onChange={e => setFormData({ ...formData, authenticityUndertaking: e.target.checked })} />
+                        <div className="flex-1">
+                          <p className="text-sm font-bold text-slate-800">I undertake that all products listed by me are authentic and genuine.</p>
+                          <p className="text-xs text-slate-500 mt-1">I declare that product descriptions and images are accurate and non-infringing. I understand that selling counterfeit goods is a punishable offense and will lead to immediate account suspension and legal action.</p>
+                        </div>
+                      </label>
                     </div>
 
                     <div className="p-4 bg-blue-50 rounded-xl text-xs text-blue-800">

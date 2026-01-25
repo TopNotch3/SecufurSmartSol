@@ -57,35 +57,7 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
 
-      {seller?.status && seller.status !== 'Live' && (
-        <div className={`p-4 rounded-2xl border flex items-start gap-3 ${seller.status === 'Applied' ? 'bg-yellow-50 border-yellow-100' :
-          seller.status === 'UnderReview' ? 'bg-blue-50 border-blue-100' :
-            seller.status === 'Suspended' ? 'bg-red-50 border-red-100' :
-              'bg-gray-50 border-gray-100'
-          }`}>
-          <AlertTriangle size={18} className={
-            seller.status === 'Applied' ? 'text-yellow-500' :
-              seller.status === 'UnderReview' ? 'text-blue-500' :
-                seller.status === 'Suspended' ? 'text-red-500' : 'text-gray-500'
-          } />
-          <div>
-            <p className="text-sm font-bold text-slate-800">Account Status: {seller.status}</p>
-            <p className="text-xs text-slate-500 mt-1">
-              {seller.status === 'Applied' && 'Your application is submitted. Complete verification to start selling.'}
-              {seller.status === 'UnderReview' && 'Your documents are under review. This usually takes 2-3 business days.'}
-              {seller.status === 'Suspended' && 'Your account is suspended. Contact support for assistance.'}
-            </p>
-            {seller.status === 'Applied' && (
-              <button
-                onClick={() => router.push('/seller/compliance')}
-                className="mt-3 text-[10px] font-bold text-[#002366] uppercase tracking-wider hover:underline"
-              >
-                Complete Verification →
-              </button>
-            )}
-          </div>
-        </div>
-      )}
+
 
 
 

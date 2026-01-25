@@ -168,8 +168,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   });
 
   const [currentUser, setCurrentUser] = useState<SellerUser | null>(() => {
-    const saved = sessionStorage.getItem('luvarte_current_user');
-    return saved ? JSON.parse(saved) : null;
+    if (typeof window !== 'undefined') {
+      const saved = sessionStorage.getItem('luvarte_current_user');
+      return saved ? JSON.parse(saved) : null;
+    }
+    return null;
   });
 
   // Products with new categories
@@ -444,10 +447,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const enrichedProfile: SellerProfile = {
       id: `SELLER-${Date.now()}`,
       businessName: profile.businessName || '',
+      tradeName: profile.tradeName || profile.businessName || '',
       brandName: profile.brandName || profile.businessName || '',
       legalEntity: profile.legalEntity || 'Pvt Ltd',
+      constitutionDoc: profile.constitutionDoc,
       gstNumber: profile.gstNumber || '',
       panNumber: profile.panNumber || '',
+      fssaiLicense: profile.fssaiLicense,
       address: profile.address || { line1: '', city: '', state: '', pincode: '' },
       contactPerson: profile.contactPerson || '',
       email: profile.email || '',
@@ -464,6 +470,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         agreementAccepted: false
       },
       complianceAgreed: false,
+      authenticityUndertaking: profile.authenticityUndertaking || false,
       commissionRate: 10,
       settlementCycle: 'Weekly',
       users: [ownerUser],
@@ -503,10 +510,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const demoSeller: SellerProfile = {
         id: 'SELLER-DEMO',
         businessName: 'Luvarte Electronics Pvt Ltd',
+        tradeName: 'Luvarte Electronics',
         brandName: 'Luvarte',
         legalEntity: 'Pvt Ltd',
+        constitutionDoc: 'https://example.com/doc.pdf',
         gstNumber: '27AABCL1234F1Z5',
         panNumber: 'AABCL1234F',
+        fssaiLicense: '10012345678901',
         address: { line1: '123 Industrial Area', city: 'Pune', state: 'Maharashtra', pincode: '411001' },
         contactPerson: 'Admin User',
         email: 'admin@luvarte.in',
@@ -524,6 +534,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           verificationDate: '2024-01-01'
         },
         complianceAgreed: true,
+        authenticityUndertaking: true,
         commissionRate: 10,
         settlementCycle: 'Weekly',
         users: [{ id: 'USER-DEMO', name: 'Admin User', email: 'admin@luvarte.in', role: 'Owner', isActive: true, createdAt: '2024-01-01' }],
@@ -614,7 +625,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       ...p,
       id: `SKU-${Math.floor(Math.random() * 90000) + 10000}`,
       status: 'Draft',
-      images: [`https://picsum.photos/400/500?random=${Math.random()}`],
+      images: p.images && p.images.length > 0 ? p.images : [`https://picsum.photos/400/500?random=${Math.random()}`],
       tags: [p.category],
       reservedStock: 0,
       availableStock: p.stock,
@@ -909,7 +920,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, [seller, addLog]);
 
   // Verification Actions
-  const submitVerificationDocuments = useCallback((documents: any) => {
+  const submitVerificationDocuments = useCallback((_documents: Record<string, File | null>) => {
     if (seller) {
       const updated = {
         ...seller,

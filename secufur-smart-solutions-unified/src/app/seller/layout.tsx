@@ -5,7 +5,7 @@ import Layout from '@/components/seller/components/Layout';
 import { useRouter, usePathname } from 'next/navigation';
 
 function SellerContent({ children }: { children: React.ReactNode }) {
-    const { isAuthenticated, logoutSeller } = useApp();
+    const { isAuthenticated, logoutSeller, seller } = useApp();
     const router = useRouter();
     const pathname = usePathname();
     const [isClient, setIsClient] = useState(false);
@@ -20,10 +20,25 @@ function SellerContent({ children }: { children: React.ReactNode }) {
         // Auth protection
         if (!isAuthenticated && pathname !== '/seller/auth') {
             router.push('/seller/auth');
-        } else if (isAuthenticated && pathname === '/seller/auth') {
-            router.push('/seller');
+            return;
         }
-    }, [isAuthenticated, pathname, router, isClient]);
+
+        if (isAuthenticated) {
+            if (pathname === '/seller/auth') {
+                router.push('/seller');
+                return;
+            }
+
+            // Verification Check
+            const isUnderReview = seller?.status === 'Applied' || seller?.status === 'UnderReview';
+
+            if (isUnderReview && pathname !== '/seller/under-review') {
+                router.push('/seller/under-review');
+            } else if (!isUnderReview && pathname === '/seller/under-review') {
+                router.push('/seller');
+            }
+        }
+    }, [isAuthenticated, pathname, router, isClient, seller?.status]);
 
     if (!isClient) return null; // Avoid hydration mismatch
 
