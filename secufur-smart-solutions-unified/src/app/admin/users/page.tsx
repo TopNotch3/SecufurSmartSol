@@ -27,7 +27,7 @@ export default function UsersPage() {
     },
     { key: 'createdAt', label: 'Created At' },
     {
-      key: 'id',
+      key: 'actions',
       label: 'Actions',
       render: (value: string) => (
         <div className="flex gap-2">
